@@ -5,9 +5,8 @@
     <classes>
       <class name="sensibull.Trade_Test">
         <methods>
-          <include name="strategyBuilder"/>
+          <include name="automate_atTheMoney"/>
           <include name="launchapp"/>
-          <include name="teardownTest"/>
         </methods>
       </class> <!-- sensibull.Trade_Test -->
     </classes>

@@ -5,6 +5,7 @@ import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
@@ -34,8 +35,29 @@ List<WebElement> putlineItems;
 List<WebElement> sell_Button;
 @FindBy(xpath="(//input[@class='MuiInputBase-input MuiInput-input'])[3]")
 WebElement putLot;
+@FindBy(xpath="//body[1]/div[1]/div[1]/div[3]/div[2]/div[1]/div[1]/div[3]/div[1]/div[1]/div[3]/table[1]/tbody[1]/tr[55]/td[5]/div[1]/div[2]/div[1]/div[2]/button[2]")
+WebElement chrosellbut;
+@FindBy(xpath="(//div[@class='MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl'])[2]")
+WebElement sell_lot_chro;
 
+public void individualBuyButton() {
+	Buy_Button.get(1).click();
+}
+public void chroSell() {
+	chrosellbut.click();
+}
+public void chroselllot(String sellLot) {
+	sell_lot_chro.sendKeys(sellLot);
+}
 
+public void buycentral() {
+	for(int i = 0 ; i<Buy_Button.size() ; i++ ) {
+		Buy_Button.get(i).click();
+	}
+}
+public void call_lot(String lotscall) {
+	call_lot.sendKeys(lotscall);
+}
 
 public void section_Button() {
 	sec_Button.click();

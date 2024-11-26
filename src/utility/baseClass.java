@@ -59,13 +59,13 @@ public class baseClass {
 			   
 			    	
 			    }
-			    @AfterTest
-			    public void teardownTest() {
-			    	if(driver != null) {
-			    		driver.close();
-			    	}
+//			    @AfterTest
+//			    public void teardownTest() {
+//			    	if(driver != null) {
+//			    		driver.close();
+//			    	}
 				
-			    }
+			    //}
 	}
 
 
