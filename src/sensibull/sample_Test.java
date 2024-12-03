@@ -9,7 +9,39 @@ public class sample_Test {
 //		  System.out.println(alBuys.size()); 
 //		  Thread.sleep(3000);
 //		  
+//		 new finally
+		
+		
+//		 atTheMoney.scrollToElement();
+//		 Thread.sleep(3000);
+//		 atTheMoney.goToCentral();
+//		 Thread.sleep(2000);
+//		 atTheMoney.chroBuyClick();
+//		 sp.call_lot("3");
+//		 Thread.sleep(2000);
+//		 sp.chroSell();
+//		 Thread.sleep(2000);
+//		// sp.chroselllot("4");
+//		 atTheMoney.upper_strike();
+//		 Thread.sleep(3000);
+//		 atTheMoney.upperBuy();
+//		 Thread.sleep(2000);
+//		 sp.call_lot("3");
+//		 atTheMoney.upperSell();
 //		 
+//		
+//		// sp.chroselllot("4");
+//		// sp.chroselllot("4");
+//		 
+//		 atTheMoney.lower_strike();
+//		 Thread.sleep(2000);
+//		 atTheMoney.lowerBuy();
+//		 
+//		 sp.call_lot("3");
+//		 Thread.sleep(2000);
+//		 atTheMoney.lowersell();
+//		 Thread.sleep(2000);
+//		// sp.chroselllot("4");
 
 		//just check
 //		  for(int k =0 ; k < driver.findElements(By.cssSelector(".sc-gizGLm.iPAxqi.rowHighlight")).size() ; k++ ) {

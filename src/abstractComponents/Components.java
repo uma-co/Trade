@@ -22,6 +22,12 @@ public class Components {
 	 js = (JavascriptExecutor) driver;
 	 js.executeScript("window.scrollTo(0, document.body.scrollHeight)");
 	}
+	public void scroolingDown() {
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		js.executeScript("window.scrollBy(0,250)");
+		
+	}
+	
 	
 	public void scrollTable() {
 		 js = (JavascriptExecutor) driver;

@@ -11,6 +11,7 @@ import org.testng.annotations.Test;
 
 import abstractComponents.Components;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import pageObjects.FutPage;
 import pageObjects.LoginPage;
 import pageObjects.StrategyPage;
 import pageObjects.atTheMoney;
@@ -45,72 +46,42 @@ public class Trade_Test extends baseClass {
 		lp.clickLogin();
 		sp = lp.userLogin("XH5750", "Tatsat@2303");
 		Thread.sleep(15000);
-		sp.section_Button();
+		//sp.section_Button();
 		Thread.sleep(3000);
-		//driver.get("https://web.sensibull.com/option-strategy-builder?instrument_symbol=RELIANCE");
+		driver.navigate().to("https://web.sensibull.com/option-strategy-builder?instrument_symbol=NATIONALUM");
+		//lp.goTo();
+		sp.section_Button();
 		atTheMoney = new atTheMoney(driver);
-		 centralAmount = atTheMoney.stockValue();
-		 System.out.println(centralAmount);
-		 try{
-			 atTheMoney.waitstoclickcentral();
-		 }
-		 catch(Exception e) {
-			 System.out.println("unableToClick");
-		 }
-		 finally {
-		 Thread.sleep(3000);
-		// Components.scrollTable();
-		 atTheMoney.scrollToElement();
-		 Thread.sleep(3000);
-		 atTheMoney.goToCentral();
-		 Thread.sleep(2000);
-		 atTheMoney.chroBuyClick();
-		 sp.call_lot("3");
-		 Thread.sleep(2000);
-		 sp.chroSell();
-		 Thread.sleep(2000);
-		// sp.chroselllot("4");
-		 atTheMoney.upper_strike();
-		 Thread.sleep(3000);
-		 atTheMoney.upperBuy();
-		 Thread.sleep(2000);
-		 sp.call_lot("3");
-		 atTheMoney.upperSell();
-		 
-		
-		// sp.chroselllot("4");
-		// sp.chroselllot("4");
-		 
-		 atTheMoney.lower_strike();
-		 Thread.sleep(2000);
-		 atTheMoney.lowerBuy();
-		 
-		 sp.call_lot("3");
-		 Thread.sleep(2000);
-		 atTheMoney.lowersell();
-		 Thread.sleep(2000);
-		// sp.chroselllot("4");
-		 
-		 }
+	//	System.out.println(atTheMoney.stockValue());
 
-		 }
-		 
-	  //document.querySelector(".sc-czOxJk.jkPetf").scrollDown = 3000
 
-  
-
- public void automateAtTheMoneyStrike() {
+    
+	atTheMoney.clickStrike("250", "50", null, null , "120");
+	atTheMoney.clickStrike("240", "60", null , "30" , null);
+	atTheMoney.clickStrike("230", null, "55" , "35" , null);
+	atTheMoney.clickStrike("220", "65", null , "45" , null);
 	
 	
-	}
-	 
-	 
-	 
+//	atTheMoney.clickStrike("245", null, "80" , "90" , null);
+	
+
+
+//	FutPage fut = new FutPage(driver);
+//	fut.rowText();
+	
+	
+
+	
+		 
+		 
+		 
+
+		 } 
 	 
  }
 
 
-
+//
 
 
 

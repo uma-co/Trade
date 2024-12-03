@@ -29,7 +29,7 @@ public class LoginPage extends Components{
 	WebElement loginSubmit;
 	
 	public void goTo() {
-		driver.get("https://web.sensibull.com/option-strategy-builder?instrument_symbol=RELIANCE");
+		driver.get("https://web.sensibull.com/option-strategy-builder?instrument_symbol= RELIANCE");
 	}
     public void clickLogin() throws InterruptedException {
     	LoginButton.click();
