@@ -2,14 +2,19 @@ package pageObjects;
 
 import java.time.Duration;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.concurrent.TimeoutException;
 
+import org.jspecify.annotations.Nullable;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import abstractComponents.Components;
@@ -207,36 +212,51 @@ public class atTheMoney extends Components{
 	
 	public void clickStrike(String atTheMoney , String CallBuy ,String CallSell , String PutBuy , String PutSell) throws InterruptedException {
 		
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		WebDriverWait wait = new WebDriverWait(driver , Duration.ofSeconds(5));
 		for(int i = 0 ; i < allStrike.size() ; i++) {
 			WebElement recen =driver.findElement(By.xpath("//td[@class='sc-fYsVRl hWspoI strike']/span[text()='"+atTheMoney+"']"));
 			Actions act = new Actions(driver);
-			act.scrollToElement(recen).perform();
-			if(allStrike.get(i).getText().equals(atTheMoney)) {
-				allStrike.get(i).click();
+act.scrollToElement(recen).perform();
+
+//		
+System.out.println(recen);
+		if(allStrike.get(i).getText().contains(atTheMoney))
+					 {
+			
+	wait.until(ExpectedConditions.elementToBeClickable(recen));
+			
+			js.executeScript("arguments[0].scrollIntoView(true);", recen);
+			
+	allStrike.get(i).click();
+
+
+			
+			//	act.scrollToElement((WebElement) allStrike).perform();
 			
 				if(CallSell != null) {
 					firstSell.get(i).click();
-					//act.sendKeys(Keys.DOWN).build().perform();
-					act.scrollToElement(ReliChrocallLot).perform();
+				
+					act.moveToElement(ReliChrocallLot).perform();
+				//ct.scrollToElement(ReliChrocallLot).perform();
 					ReliChrocallLot.sendKeys(Keys.BACK_SPACE);
 					driver.findElement(By.xpath("//tbody/tr['"+i+"']/td[2]/div[1]/div[2]/div[2]/div[1]/div[1]/div[1]/input[1]")).sendKeys(CallSell);
 				}
-//					if( PutBuy != null) {
-//					secondBuy.get(i).click();
-//					Thread.sleep(2000);
-//					//ReliChrocallLot.sendKeys(Keys.BACK_SPACE);
-//					 putLot.sendKeys(Keys.BACK_SPACE);
-//					 driver.findElement(By.xpath("//tbody/tr['"+i+"']/td[5]/div[1]/div[2]/div[2]/div[1]/div[1]/div[1]/input[1]")).sendKeys(PutBuy);
-//					}
+
 				 if(CallBuy != null  ) {
 					Buy_Button.get(i).click();
+					act.moveToElement(ReliChrocallLot).perform();
 				//	act.sendKeys(Keys.DOWN).build().perform();
 					act.scrollToElement(ReliChrocallLot).perform();
+					Thread.sleep(2000);
 					ReliChrocallLot.sendKeys(Keys.BACK_SPACE);
+					Thread.sleep(2000);
 					driver.findElement(By.xpath("//tbody/tr['"+i+"']/td[2]/div[1]/div[2]/div[2]/div[1]/div[1]/div[1]/input[1]")).sendKeys(CallBuy);
 				 }
 				 if( PutBuy != null) {
+					 Thread.sleep(1000);
 						secondBuy.get(i).click();
+						
 						Thread.sleep(2000);
 						//ReliChrocallLot.sendKeys(Keys.BACK_SPACE);
 						 putLot.sendKeys(Keys.BACK_SPACE);
@@ -246,12 +266,171 @@ public class atTheMoney extends Components{
 				//	driver.findElement(By.xpath("//tbody/tr['"+i+"']/td[2]/div[1]/div[2]/div[2]/div[1]/div[1]/div[1]/input[1]")).sendKeys(CallLot);
 					
 					sell_Button.get(i).click();
+					Thread.sleep(2000);
 					putLot.sendKeys(Keys.BACK_SPACE);
+					Thread.sleep(2000);
 					driver.findElement(By.xpath("//tbody/tr['"+i+"']/td[5]/div[1]/div[2]/div[2]/div[1]/div[1]/div[1]/input[1]")).sendKeys(PutSell);
 					
 					}}
+		}
+		}
+	
+	//----
+	
+	
+	
+	public WebElement scrollUpUntilElementIsFound(By locator, int maxScrolls) {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        WebElement element = null;
+        int scrollCount = 0;
+        Actions act = new Actions(driver);
+
+        // Initialize WebDriverWait to check for element visibility
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+        while (scrollCount < maxScrolls) {
+            try {
+                // Check if the element is visible
+              //  element = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+                act.moveToElement((WebElement) locator).perform();
+                if (element.isDisplayed()) {
+                    return element; // Return element if found
+                }
+            } catch (NoSuchElementException e) {
+                // If not found or not visible, scroll up and retry
+                js.executeScript("window.scrollBy(0,-2000)"); // Scroll up by 500px
+                scrollCount++;
+            }
+
+            // Add a small wait to allow for the page rendering after scroll
+            try {
+                Thread.sleep(500);  // adjust the sleep time based on page load time
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }}
+		return element;
+        }
+	
+public void clickStrike_s(String atTheMoney , String CallBuy ,String CallSell , String PutBuy , String PutSell) throws InterruptedException, TimeoutException {
+	 WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+	//	ScrollUpUntilElementFound scroller = new ScrollUpUntilElementFound(driver);
+	//	WebElement element = scroller.scrollUpUntilElementIsFound(By.id("targetElementId"), 10);
+		Actions act = new Actions(driver);
+		for(int i = 0 ; i < allStrike.size() ; i++) {
+		//	scrollUp scroller = new scrollUp(driver);
+		
+			WebElement recen =driver.findElement(By.xpath("//td[@class='sc-fYsVRl hWspoI strike']/span[text()='"+atTheMoney+"']"));
+		//	Actions act = new Actions(driver);
+
+
+		try {
+			
+			//js.executeScript("arguments[0].scrollIntoView(true);", recen);
+          act.scrollToElement(recen).perform();
+
+		}	
+			
+			
+//atTheMoney atTheMoney1 = new atTheMoney(driver);
+//scroller.scrollUpUntilElementIsFound(By.xpath("//td[@class='sc-fYsVRl hWspoI strike']/span[text()='"+atTheMoney+"']"), 5);
+//scrollUpUntilElementIsFound(By.xpath("//td[@class='sc-fYsVRl hWspoI strike']/span[text()='"+atTheMoney+"']"), 5);
+catch(Exception e){
+	
+			System.out.println(recen);
+}
+			
+		if(allStrike.get(i).getText().contains(atTheMoney))
+					 {
+	//	act.moveToElement(recen).sendKeys(Keys.PAGE_UP).perform();
+//		act.sendKeys(recen).click(recen); //((JavascriptExecutor) driver).executeScript("arguments[0].scrollTop = arguments[0].scrollHeight", recen);
+			wait.until(ExpectedConditions.elementToBeClickable(recen));
+			
+			js.executeScript("arguments[0].scrollIntoView(true);", recen);
+			allStrike.get(i).click();
+		
+//			if(!recen.isSelected()) {
+//				if(allStrike.get(i) != recen) {
+//					((JavascriptExecutor) driver).executeScript("arguments[0].scrollTop = arguments[1];", recen, -400);
+//					allStrike.get(i).click();
+//				}
+//				}
+		
+//			
+		//	act.scrollToElement(recen).click().sendKeys(Keys.UP).perform();
+			
+		
+		//allStrike.get(i).click();
+			
+			
+		//	((JavascriptExecutor) driver).executeScript("window.scrollTo(0, arguments[0]);", pixel);
+
+		//	act.moveToElement(recen).sendKeys(Keys.PAGE_UP);
+			
+	//	act.clickAndHold(recen).perform();
+			
+			//wait.until(ExpectedConditions.elementToBeClickable(recen)).click();
+			
+		//	act.scrollToElement(recen).sendKeys(Keys.UP).perform();
+			//act.sendKeys(Keys.UP).build().perform();
+	//	scrollUpUntilElementIsFound(By.xpath("//td[@class='sc-fYsVRl hWspoI strike']/span[text()='"+atTheMoney+"']"), 5);
+		//act.scrollToElement(recen).perform();
+		//atTheMoney atTheMoney1 = new atThe
+		//scroller.scrollUpUntilElementIsFound(By.xpath("//td[@class='sc-fYsVRl hWspoI strike']/span[text()='"+atTheMoney+"']"), 5);
+	//act.moveToElement(allStrike.get(i)).click();
+		//	allStrike.get(i).click();
+
+					 
+			
+			//	act.scrollToElement((WebElement) allStrike).perform();
+			
+				if(CallSell != null) {
+					firstSell.get(i).click();
+				
+				//	act.moveToElement(ReliChrocallLot).perform();
+				//ct.scrollToElement(ReliChrocallLot).perform();
+					ReliChrocallLot.sendKeys(Keys.BACK_SPACE);
+					driver.findElement(By.xpath("//tbody/tr['"+i+"']/td[2]/div[1]/div[2]/div[2]/div[1]/div[1]/div[1]/input[1]")).sendKeys(CallSell);
 				}
-			}
+
+				 if(CallBuy != null  ) {
+					 Thread.sleep(1000);
+					Buy_Button.get(i).click();
+					
+				//	act.moveToElement(ReliChrocallLot).perform();
+				//	act.sendKeys(Keys.DOWN).build().perform();
+					//act.scrollToElement(ReliChrocallLot).perform();
+					ReliChrocallLot.sendKeys(Keys.BACK_SPACE);
+					driver.findElement(By.xpath("//tbody/tr['"+i+"']/td[2]/div[1]/div[2]/div[2]/div[1]/div[1]/div[1]/input[1]")).sendKeys(CallBuy);
+				 }
+				 if( PutBuy != null) {
+					 Thread.sleep(1000);
+						secondBuy.get(i).click();
+						
+						Thread.sleep(1000);
+						//ReliChrocallLot.sendKeys(Keys.BACK_SPACE);
+						 putLot.sendKeys(Keys.BACK_SPACE);
+						 driver.findElement(By.xpath("//tbody/tr['"+i+"']/td[5]/div[1]/div[2]/div[2]/div[1]/div[1]/div[1]/input[1]")).sendKeys(PutBuy);
+						}
+					if(PutSell!= null) {
+				//	driver.findElement(By.xpath("//tbody/tr['"+i+"']/td[2]/div[1]/div[2]/div[2]/div[1]/div[1]/div[1]/input[1]")).sendKeys(CallLot);
+					
+					sell_Button.get(i).click();
+					Thread.sleep(2000);
+					putLot.sendKeys(Keys.BACK_SPACE);
+					driver.findElement(By.xpath("//tbody/tr['"+i+"']/td[5]/div[1]/div[2]/div[2]/div[1]/div[1]/div[1]/input[1]")).sendKeys(PutSell);
+					
+					}
+					
+					 }
+		}
+		
+}
+		
+		
+
+				
+
 			
 		
 		
