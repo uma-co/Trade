@@ -1,6 +1,7 @@
 package pageObjects;
 
 import java.time.Duration;
+import java.time.temporal.TemporalAmount;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.concurrent.TimeoutException;
@@ -28,9 +29,13 @@ public class atTheMoney extends Components{
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
 	}
+	@FindBy(xpath="//button[@class='sc-hKKeuH euopAa']")
+	WebElement settingsButton;
+	@FindBy(id="Lots")
+	WebElement Lots;;
 	@FindBy(xpath="(//div[@class='sc-kOtWFZ fiufgV'])[2]")
 	WebElement stock;
-	@FindBy(xpath="//td[@class='sc-fYsVRl hWspoI strike']/span")
+	@FindBy(xpath="//div[@class='sc-hScDUP kZRMSv']/p")
 	List<WebElement> allStrike;
 	@FindBy(xpath="//td[@class='sc-fYsVRl hWspoI strike']/span[text()='24300']")
 	WebElement centralAmount;
@@ -50,7 +55,7 @@ public class atTheMoney extends Components{
 	WebElement chroLowerSell;
 	////body[1]/div[1]/div[1]/div[3]/div[2]/div[1]/div[1]/div[3]/div[1]/div[1]/div[3]/table[1]/tbody[1]/tr[53]/td[5]/div[1]/div[2]/div[1]/div[2]/button[2]/span[1]
 	////tbody/tr/td[5]/div[1]/div[2]/div[1]/div[2]/button[2]/span[1]
-	@FindBy(xpath="//div[@class='sc-PfnZo hvZTFK']/following-sibling::div[1]/div/div[2]/button[1]/span")
+	@FindBy(xpath="//div[@type='CALL']//button[@action='BUY']/p")
 	List<WebElement> Buy_Button;
 	@FindBy(xpath="//div[@class='sc-PfnZo frkgVM']/following-sibling::div/div/div/following-sibling::div/button[2]/span")
 	List<WebElement> sell_Button;
@@ -60,9 +65,9 @@ public class atTheMoney extends Components{
 	//(//input[@class='MuiInputBase-input MuiInput-input'])[2]
 	@FindBy(xpath="//input[@class='MuiInputBase-input MuiInput-input']")
 	WebElement call_lot;
-	@FindBy(xpath="//div[@class='MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl']/input")
+	@FindBy(xpath="//div//input[@class='sc-caVybk krkDcN lot-qty-input']")
 	WebElement ReliChrocallLot;
-	@FindBy(xpath="//div[@class='sc-PfnZo hvZTFK']/following-sibling::div[1]/div/div[2]/button[2]/span")
+	@FindBy(xpath="//button[@action='SELL']//p[@class='sc-kMOkjD fLfNCO']")
 	List<WebElement> firstSell;
 	@FindBy(xpath="//div[@class='sc-PfnZo frkgVM']/following-sibling::div/div/div/following-sibling::div/button[1]/span")
 	List<WebElement> secondBuy;
@@ -73,6 +78,12 @@ public class atTheMoney extends Components{
 	@FindBy(xpath="//div[@class='MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl']")
 	WebElement newInput;
 //	//div[@class='sc-kLjnrX kySuT']/div/div[@class='MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl']
+	
+	public void settingScreen() {
+		settingsButton.click();
+		Lots.click();
+	}
+	
 	
 	public void lowersell() {
 		chroLowerSell.click();
@@ -214,7 +225,7 @@ public class atTheMoney extends Components{
 		
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		WebDriverWait wait = new WebDriverWait(driver , Duration.ofSeconds(5));
-		for(int i = 0 ; i < allStrike.size() ; i++) {
+		for(int i = 1 ; i < allStrike.size() ; i++) {
 			WebElement recen =driver.findElement(By.xpath("//td[@class='sc-fYsVRl hWspoI strike']/span[text()='"+atTheMoney+"']"));
 			Actions act = new Actions(driver);
 act.scrollToElement(recen).perform();
@@ -311,16 +322,91 @@ System.out.println(recen);
 		return element;
         }
 	
+	public void newLocators(String atTheMoney) throws InterruptedException {
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		 WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+		Actions act = new Actions(driver);
+		
+		for(int i = 0 ; i < allStrike.size(); i++) {
+			WebElement recen =driver.findElement(By.xpath("//div[@class='sc-hScDUP kZRMSv']/p[text()="+atTheMoney+"]"));
+		
+		//	 act.scrollToElement(recen).perform();
+		
+			 if(allStrike.get(i).getText().contains(atTheMoney)) {
+				 wait.until(ExpectedConditions.elementToBeClickable(recen));
+				// js.executeScript("arguments[0].scrollIntoView(true);", recen);
+			//	 Thread.sleep(3000);
+				 allStrike.get(i).click();
+				 Thread.sleep(3000);
+				WebElement buy =  driver.findElement(By.xpath("//tbody/tr["+i+"]/td[2]/div[1]/div[3]/div[1]/div[1]/button[1]/p[1]"));
+//			act.moveToElement(buy).click();
+			//	WebElement sell = 	driver.findElement(By.xpath("//tbody/tr["+i+-1+"]/td[2]/div[1]/div[3]/div[1]/div[1]/button[2]/p[1]"));
+			//	wait.until(ExpectedConditions.elementToBeClickable(buy)).click();
+			//	WebElement putBuy =		driver.findElement(By.xpath("//tbody/tr["+i+-1+"]/td[5]/div[1]/div[3]/div[1]/div[1]/button[1]"));
+				 //	 WebElement element = driver.findElement(By.xpath("//div[@type='CALL']/following-sibling::div[1]//button[@action='BUY']"));
+				WebElement putSell =     driver.findElement(By.xpath("//tbody/tr["+i+"]/td[5]/div[1]/div[3]/div[1]/div[1]/button[2]/p[1]"));
+			        // Use JavaScript to click the element directly
+			//	Thread.sleep(3000);
+				 js.executeScript("arguments[0].scrollIntoView(true);", buy );
+				 Thread.sleep(3000);
+				 buy.click();
+				 putSell.click();
+			      js.executeScript("arguments[0].click();", buy);
+			      js.executeScript("arguments[0].click();", putSell);
+		//	 Buy_Button.get(i).getAttribute("fdprocessedid")act.click();
+			
+			
+				 
+			} 
+		}
+			 
+		}
+//		for(int i = 0 ; i < allStrike.size() ; i++) {
+//			WebElement recen =driver.findElement(By.xpath("//div[@class='sc-hScDUP kZRMSv']/p[text()='"+atTheMoney+"']"));
+//			 act.scrollToElement(recen).perform();
+//			 if(allStrike.get(i).getText().contains(atTheMoney)) {
+//				 wait.until(ExpectedConditions.elementToBeClickable(recen));
+//					
+//					js.executeScript("arguments[0].scrollIntoView(true);", recen);
+//					allStrike.get(i).click();
+//		int i = 0;
+//		driver.findElement(By.xpath("//div[@class='sc-hScDUP kZRMSv']/p[text()='1270']")).click();
+//		//div[@class='sc-hScDUP kZRMSv']/p[text()='1270']
+//		driver.findElement(By.xpath("//tbody/tr[22]/td[2]/div[1]/div[3]/div[1]/div[1]/button[1]/p[1]")).click();
+//		while(i<3) {
+//			Thread.sleep(2000);
+//		driver.findElement(By.xpath("//tbody/tr[22]/td[2]/div[1]/div[3]/div[2]/div[1]/input[1]")).sendKeys(Keys.BACK_SPACE);
+//		if(i==2) {
+//			break;
+//		}
+//		}
+//		driver.findElement(By.xpath("//tbody/tr[22]/td[2]/div[1]/div[3]/div[2]/div[1]/input[1]")).sendKeys("1000");
+					//Buy_Button.get(i).click();
+//					WebElement bb = driver.findElement(By.xpath("//tbody/tr[22]/td[2]/div[1]/div[3]/div[1]/div[1]/button[1]"));
+//					js.executeScript("arguments[0].click();", bb);
+					//wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//tbody/tr['"+i+"']/td[2]/div[1]/div[3]/div[1]/div[1]/button[1]"))).click();
+			    //    driver.findElement(By.xpath("//tbody/tr[22]/td[2]/div[1]/div[3]/div[2]/div[1]/input[1]")).sendKeys(Keys.BACK_SPACE);
+			       // driver.findElement(By.xpath("//tbody/tr['"+i+"']/td[2]/div[1]/div[3]/div[2]/div[1]/input[1]")).sendKeys("1000");
+			 
+
+		
+		
+		
+		
+
+	
+	
+	
 public void clickStrike_s(String atTheMoney , String CallBuy ,String CallSell , String PutBuy , String PutSell) throws InterruptedException, TimeoutException {
 	 WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 	//	ScrollUpUntilElementFound scroller = new ScrollUpUntilElementFound(driver);
 	//	WebElement element = scroller.scrollUpUntilElementIsFound(By.id("targetElementId"), 10);
 		Actions act = new Actions(driver);
-		for(int i = 0 ; i < allStrike.size() ; i++) {
+		for(int i = 1 ; i < allStrike.size() ; i++) {
 		//	scrollUp scroller = new scrollUp(driver);
 		
-			WebElement recen =driver.findElement(By.xpath("//td[@class='sc-fYsVRl hWspoI strike']/span[text()='"+atTheMoney+"']"));
+			WebElement recen =driver.findElement(By.xpath("//div[@class='sc-hScDUP kZRMSv']/p[text()='"+atTheMoney+"']"));
 		//	Actions act = new Actions(driver);
 
 
@@ -346,7 +432,8 @@ catch(Exception e){
 //		act.sendKeys(recen).click(recen); //((JavascriptExecutor) driver).executeScript("arguments[0].scrollTop = arguments[0].scrollHeight", recen);
 			wait.until(ExpectedConditions.elementToBeClickable(recen));
 			
-			js.executeScript("arguments[0].scrollIntoView(true);", recen);
+		//	js.executeScript("arguments[0].scrollIntoView(true);", recen);
+			//Thread.sleep(2000);
 			allStrike.get(i).click();
 		
 //			if(!recen.isSelected()) {
@@ -385,41 +472,66 @@ catch(Exception e){
 			//	act.scrollToElement((WebElement) allStrike).perform();
 			
 				if(CallSell != null) {
-					firstSell.get(i).click();
-				
+					
+					WebElement sell = 	driver.findElement(By.xpath("//tbody/tr["+ (i + 1) + "]/td[2]/div[1]/div[3]/div[1]/div[1]/button[2]/p[1]"));
+					
+					//	wait.until(ExpectedConditions.elementToBeClickable(buy)).click();
+					  js.executeScript("arguments[0].click();", sell);
 				//	act.moveToElement(ReliChrocallLot).perform();
 				//ct.scrollToElement(ReliChrocallLot).perform();
-					ReliChrocallLot.sendKeys(Keys.BACK_SPACE);
-					driver.findElement(By.xpath("//tbody/tr['"+i+"']/td[2]/div[1]/div[2]/div[2]/div[1]/div[1]/div[1]/input[1]")).sendKeys(CallSell);
+					  
+					  driver.findElement(By.xpath("//tbody/tr["+ (i + 1) +"]/td[2]/div[1]/div[3]/div[2]/div[1]/input[1]")).sendKeys(Keys.BACK_SPACE);
+						//	ReliChrocallLot.sendKeys(Keys.BACK_SPACE);
+							driver.findElement(By.xpath("//tbody/tr["+ (i + 1) +"]/td[2]/div[1]/div[3]/div[2]/div[1]/input[1]")).sendKeys(CallSell);
+//					ReliChrocallLot.sendKeys(Keys.BACK_SPACE);
+//					driver.findElement(By.xpath("//tbody/tr['"+i+"']/td[2]/div[1]/div[2]/div[2]/div[1]/div[1]/div[1]/input[1]")).sendKeys(CallSell);
 				}
 
 				 if(CallBuy != null  ) {
-					 Thread.sleep(1000);
-					Buy_Button.get(i).click();
+					 Thread.sleep(2000);
+					
+					 WebElement buy =  driver.findElement(By.xpath("//tbody/tr["+ (i + 1) + "]/td[2]/div[1]/div[3]/div[1]/div[1]/button[1]/p[1]")); 
+					// Buy_Button.get(i).click();
+					  js.executeScript("arguments[0].click();", buy);
+					// driver.findElements(By.xpath("//div[@type='CALL']//div//button//p[text()='B']")).get(i).click();
+					//driver.findElement(By.xpath("//tbody/tr['"+i+"']/td[2]/div[1]/div[3]/div[1]/div[1]/button[1]")).click();
+					Thread.sleep(2000);
 					
 				//	act.moveToElement(ReliChrocallLot).perform();
 				//	act.sendKeys(Keys.DOWN).build().perform();
 					//act.scrollToElement(ReliChrocallLot).perform();
-					ReliChrocallLot.sendKeys(Keys.BACK_SPACE);
-					driver.findElement(By.xpath("//tbody/tr['"+i+"']/td[2]/div[1]/div[2]/div[2]/div[1]/div[1]/div[1]/input[1]")).sendKeys(CallBuy);
+					driver.findElement(By.xpath("//tbody/tr["+ (i + 1) +"]/td[2]/div[1]/div[3]/div[2]/div[1]/input[1]")).sendKeys(Keys.BACK_SPACE);
+				//	ReliChrocallLot.sendKeys(Keys.BACK_SPACE);
+					driver.findElement(By.xpath("//tbody/tr["+ (i + 1) +"]/td[2]/div[1]/div[3]/div[2]/div[1]/input[1]")).sendKeys(CallBuy);
 				 }
 				 if( PutBuy != null) {
 					 Thread.sleep(1000);
-						secondBuy.get(i).click();
+					
+					 WebElement putBuy =driver.findElement(By.xpath("//tbody/tr["+ (i + 1) +"]/td[5]/div[1]/div[3]/div[1]/div[1]/button[1]"));
 						
 						Thread.sleep(1000);
+						  js.executeScript("arguments[0].click();", putBuy);
 						//ReliChrocallLot.sendKeys(Keys.BACK_SPACE);
-						 putLot.sendKeys(Keys.BACK_SPACE);
-						 driver.findElement(By.xpath("//tbody/tr['"+i+"']/td[5]/div[1]/div[2]/div[2]/div[1]/div[1]/div[1]/input[1]")).sendKeys(PutBuy);
+						  driver.findElement(By.xpath("//tbody/tr["+ (i + 1) +"]/td[5]/div[1]/div[3]/div[2]/div[1]/input[1]")).sendKeys(Keys.BACK_SPACE);
+						  
+						 
+						//  putLot.sendKeys(Keys.BACK_SPACE);
+						  driver.findElement(By.xpath("//tbody/tr["+ (i + 1) +"]/td[5]/div[1]/div[3]/div[2]/div[1]/input[1]")).sendKeys(PutBuy);
+						  // driver.findElement(By.xpath("//tbody/tr["+i+"]/td[5]/div[1]/div[2]/div[2]/div[1]/div[1]/div[1]/input[1]")).sendKeys(PutBuy);
 						}
 					if(PutSell!= null) {
+						
 				//	driver.findElement(By.xpath("//tbody/tr['"+i+"']/td[2]/div[1]/div[2]/div[2]/div[1]/div[1]/div[1]/input[1]")).sendKeys(CallLot);
-					
-					sell_Button.get(i).click();
+						WebElement putSell =    driver.findElement(By.xpath("//tbody/tr["+ (i + 1) +"]/td[5]/div[1]/div[3]/div[1]/div[1]/button[2]/p[1]"));
+				//	sell_Button.get(i).click();
 					Thread.sleep(2000);
-					putLot.sendKeys(Keys.BACK_SPACE);
-					driver.findElement(By.xpath("//tbody/tr['"+i+"']/td[5]/div[1]/div[2]/div[2]/div[1]/div[1]/div[1]/input[1]")).sendKeys(PutSell);
-					
+			putSell.click();
+				//	js.executeScript("arguments[0].click();", PutSell);
+					 
+					 driver.findElement(By.xpath("//tbody/tr["+ (i + 1) +"]/td[5]/div[1]/div[3]/div[2]/div[1]/input[1]")).sendKeys(Keys.BACK_SPACE);
+//					putLot.sendKeys(Keys.BACK_SPACE);
+//					driver.findElement(By.xpath("//tbody/tr['"+i+"']/td[5]/div[1]/div[2]/div[2]/div[1]/div[1]/div[1]/input[1]")).sendKeys(PutSell);
+					 driver.findElement(By.xpath("//tbody/tr["+ (i + 1) +"]/td[5]/div[1]/div[3]/div[2]/div[1]/input[1]")).sendKeys(PutSell);
 					}
 					
 					 }

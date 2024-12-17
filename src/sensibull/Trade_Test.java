@@ -51,14 +51,33 @@ public class Trade_Test extends baseClass {
 		Thread.sleep(15000);
 		//sp.section_Button();
 		Thread.sleep(3000);
+		try {
 		driver.navigate().to("https://web.sensibull.com/option-strategy-builder?instrument_symbol=RELIANCE");
+		}
+		catch(Exception e) {
+			System.out.println("exception");
+		}
 		//lp.goTo();
+		finally {
 		sp.section_Button();
+		Thread.sleep(5000);
 		Actions act = new Actions(driver);
 		atTheMoney = new atTheMoney(driver);
 	//	System.out.println(atTheMoney.stockValue());
-
-		atTheMoney.clickStrike_s("1500", "50", null, "100" , null);
+ //  atTheMoney.newLocators();
+		atTheMoney.settingScreen();
+//		FutPage FutPage = new FutPage(driver);
+//	//	FutPage.rowText();
+//		FutPage.FutClick(null , "80");
+//		FutPage.FutClick("70" , null);
+	//	FutPage.FutClick(null , "90");
+		
+	//	atTheMoney.newLocators("1360");
+		// atTheMoney.newLocators("1320");
+//		 atTheMoney.newLocators("1300");
+//		 atTheMoney.newLocators("1280");
+//		 atTheMoney.newLocators("1260");
+		//atTheMoney.clickStrike_s("1280", "500", null, "1000" , null);
 		atTheMoney.clickStrike_s("1480", "50", null, "130" , null);
 		atTheMoney.clickStrike_s("1460", "50", null, null , "120");
 		
@@ -74,17 +93,22 @@ public class Trade_Test extends baseClass {
 	
 	atTheMoney.clickStrike_s("1280", null, "55" , "35" , null);
 	atTheMoney.clickStrike_s("1260", null, "55" , "35" , null);
+	FutPage FutPage = new FutPage(driver);
+		FutPage.rowText();
+		FutPage.FutClick(null , "80");
+	FutPage.FutClick("70" , null);
+	FutPage.done();
 	
-	atTheMoney.clickStrike_s("1240", null, "55" , "35" , null);
-	atTheMoney.clickStrike_s("1230", "89", null , "35" , null);
-	atTheMoney.clickStrike_s("1220", null, "80" , null , "55");
-	atTheMoney.clickStrike_s("1210", null, "55" , "35" , null);
-	atTheMoney.clickStrike_s("1190", null, "55" , "35" , null);
-	atTheMoney.clickStrike_s("1180", null, "55" , "35" , null);
-//	atTheMoney.clickStrike_s("1120", "55", null , "35" , null);
-//	atTheMoney.clickStrike_s("1080", null, "55" , "35" , null);
+//	atTheMoney.clickStrike_s("1240", null, "55" , "35" , null);
+//	atTheMoney.clickStrike_s("1230", "89", null , "35" , null);
+//	atTheMoney.clickStrike_s("1220", null, "80" , null , "55");
+//	atTheMoney.clickStrike_s("1210", null, "55" , "35" , null);
+//	atTheMoney.clickStrike_s("1190", null, "55" , "35" , null);
+//	atTheMoney.clickStrike_s("1180", null, "55" , "35" , null);
+////	atTheMoney.clickStrike_s("1120", "55", null , "35" , null);
+////	atTheMoney.clickStrike_s("1080", null, "55" , "35" , null);
 
-
+       }
 
 //	FutPage fut = new FutPage(driver);
 //	fut.rowText();

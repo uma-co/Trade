@@ -22,10 +22,10 @@ public class baseClass {
 
 	
 		// TODO Auto-generated method stub
-				public  static WebDriver driver;	 
+				public static WebDriver driver;	 
 				
 				
-			    public static WebDriver initializeBrowser() throws IOException  {
+			    public static  WebDriver initializeBrowser() throws IOException  {
 				Properties prop = new Properties();
 				FileInputStream fis = new FileInputStream(System.getProperty("user.dir")+"//src//utility//Browser.properties");
 				prop.load(fis);

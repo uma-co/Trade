@@ -21,6 +21,9 @@ public class StrategyPage extends Components {
 			}
 @FindBy(xpath="//div[@class='buttonsSection']")
 WebElement sec_Button;
+@FindBy(xpath="//button[@class='sc-hKKeuH iaBeSY']")
+WebElement newStrategy;
+
 @FindBy(css=".sc-gizGLm.iPAxqi.rowHighlight")
 List<WebElement> lineItems;
 @FindBy(xpath="//div[@class='sc-PfnZo hvZTFK']/following-sibling::div[1]/div/div[2]/button[1]/span")
@@ -60,7 +63,7 @@ public void call_lot(String lotscall) {
 }
 
 public void section_Button() {
-	sec_Button.click();
+	newStrategy.click();
 }
 public int buysize() {
 	return Buy_Button.size();

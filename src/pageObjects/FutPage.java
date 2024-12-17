@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -20,22 +23,28 @@ public class FutPage extends Components{
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
 	}
-	@FindBy(xpath="//span[contains(text(),'FUT')]")
+	@FindBy(xpath="//button//div[text()='Futures']")
 	WebElement FutButton;
-	@FindBy(xpath="//div[@class='action-buy']/button[@class='MuiButtonBase-root MuiButton-root jss614 MuiButton-outlined']/span")
+	@FindBy(xpath="//div[@class='sc-hScDUP gmNNGY']/button[@action='BUY']")
 	List<WebElement> FutBuyButton;
 	@FindBy(xpath="//div[@class='data']")
 	List<WebElement> rowText;
-	@FindBy(xpath="//div[@class='action-sell']/button[@class='MuiButtonBase-root MuiButton-root jss614 MuiButton-outlined']/span")
+	@FindBy(xpath="//div[@class='sc-hScDUP gmNNGY']/button[@action='SELL']")
 	List<WebElement> FutSellButton;
-	@FindBy(xpath="//div[@class='sc-iyHKyE kAGHCb']/div")
+	@FindBy(xpath="//td//p[@class='sc-kMOkjD KooNm']")
 	List<WebElement> allElements;
-	
-	
-	
+	@FindBy(xpath="//div//input[@class='sc-caVybk krkDcN lot-qty-input']")
+	List<WebElement> BuyFuturistic;
+	@FindBy(xpath="//div//button[@action='SELL'][@class='sc-knLdlU kgPpkB']")
+	WebElement SellFuturistic;
+	@FindBy(xpath="//div//button[text()='Done']")
+	WebElement DoneButton;
 
 
-
+public void done() {
+	DoneButton.click();
+}
+	
 public ArrayList<String> monthList() {
 	
 	ArrayList<String> list = new ArrayList<String>();
@@ -55,38 +64,71 @@ public ArrayList<String> monthList() {
 	return list;
 	
 }
-
-public void rowText() {
+String value;
+public String rowText() {
 	FutButton.click();
-	for(int i = 0 ; i <= allElements.size() ; i++) {
-		String value =	allElements.get(i).getText().split("24")[0].trim().split(" ")[1].trim();
+	for(int i = 0 ; i < allElements.size() ; i++) {
+		value =	allElements.get(i).getText().split("10")[0].trim().split(" ")[1].trim();
 		System.out.println(value);
+		return value;
 		
 	}
+	return value;
 	
 }
-//public void FutClick() {
-//ArrayList<String> Listofmonth = 	monthList();
-//FutButton.click();
-//
-//	for(int i = 0 ; i <= expiry.size() ; i++) {
-//	String value =	rowText.getText().split("24")[0].trim().split(" ")[1].trim();
-//	System.out.println(value);
-//	
-//	List formattedValue = Arrays.asList(value);
-//	if(formattedValue.contains(Listofmonth)) {
-//	
-//		FutBuyButton.get(i).click();
-//	
-//	}
-//	
+public void FutClick(String FutBbButton , String FutSsButton) {
+	JavascriptExecutor js = (JavascriptExecutor) driver;
+	String values = rowText();
+	FutButton.click();
+	for(int i = 0 ; i < allElements.size(); i++) {
+		value =	allElements.get(i).getText().split("10")[0].trim().split(" ")[1].trim();
+		if(FutBbButton != null) {
+			if(value.equalsIgnoreCase("jan")) {
+				FutBuyButton.get(i).click();
+				//driver.findElement(By.xpath("//tbody/tr["+i+"]/td[2]/div[1]/div[2]/button[1]/p[1]")).click();
+				i++;
+				WebElement buyinput =		driver.findElement(By.xpath("//tbody/tr["+i+"]/td[2]/div[1]/div[1]/div[1]/input[1]"));
+//				buyinput.sendKeys(Keys.BACK_SPACE);
+				
+				buyinput.sendKeys(Keys.BACK_SPACE);
+				buyinput.sendKeys(FutBbButton);
+//				BuyFuturistic.get(i).sendKeys(Keys.BACK_SPACE);
+//				BuyFuturistic.get(i).sendKeys(FutBbButton);
+//				
+//		buyinput.sendKeys(FutBbButton);
+		break;
+			
+			}
+			
+			
+		}
+		if(FutSsButton != null) {
+			
+			if(value.equalsIgnoreCase("dec")) {
+			FutSellButton.get(i).click();
+			i++;
+			WebElement sellinput =		driver.findElement(By.xpath("//tbody/tr["+i+"]/td[2]/div[1]/div[1]/div[1]/input[1]"));
+//			buyinput.sendKeys(Keys.BACK_SPACE);
+			
+			sellinput.sendKeys(Keys.BACK_SPACE);
+			sellinput.sendKeys(FutSsButton);
+//			BuyFuturistic.get(i).sendKeys(Keys.BACK_SPACE);
+//			BuyFuturistic.get(i).sendKeys(FutBbButton);
 //			
-//			
-//		
-//	}
+//	buyinput.sendKeys(FutBbButton);
+	break;
+			
+		}
+			
+	}
+	
+	
+	}}}
+
+
 //}
 
 
-}
+
 
 
