@@ -29,13 +29,13 @@ public class atTheMoney extends Components{
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
 	}
-	@FindBy(xpath="//button[@class='sc-hKKeuH euopAa']")
+	@FindBy(css="[class='sc-dRPiIx fDGPiM']")
 	WebElement settingsButton;
 	@FindBy(id="Lots")
 	WebElement Lots;;
-	@FindBy(xpath="(//div[@class='sc-kOtWFZ fiufgV'])[2]")
+	@FindBy(xpath="(//div[@id='new-ticker-text'])[2]/span[2]")
 	WebElement stock;
-	@FindBy(xpath="//div[@class='sc-hScDUP kZRMSv']/p")
+	@FindBy(xpath="//div[@class='sc-DJfgX jNTNvx']/p")
 	List<WebElement> allStrike;
 	@FindBy(xpath="//td[@class='sc-fYsVRl hWspoI strike']/span[text()='24300']")
 	WebElement centralAmount;
@@ -147,9 +147,18 @@ public class atTheMoney extends Components{
 		
 	}
 	
-	public double stockValue() {
-	double stockval =  Math.round(Double.parseDouble(stock.getText().split(" ")[1]));
-	return stockval;
+	public  long stockValue() {
+		
+		
+	long stockval =  Math.round(Double.parseDouble(stock.getText()));
+		System.out.println(stockval);
+		return stockval;
+		//String[] vals = String.valueOf(stockval).split(".");
+	//	return stockval;
+		
+	///	return stockval;
+		
+		
 	}
 	
 	
@@ -406,7 +415,7 @@ public void clickStrike_s(String atTheMoney , String CallBuy ,String CallSell , 
 		for(int i = 1 ; i < allStrike.size() ; i++) {
 		//	scrollUp scroller = new scrollUp(driver);
 		
-			WebElement recen =driver.findElement(By.xpath("//div[@class='sc-hScDUP kZRMSv']/p[text()='"+atTheMoney+"']"));
+			WebElement recen =driver.findElement(By.xpath("//div[@class='sc-DJfgX jNTNvx']/p[text()='"+atTheMoney+"']"));
 		//	Actions act = new Actions(driver);
 
 

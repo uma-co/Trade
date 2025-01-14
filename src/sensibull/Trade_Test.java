@@ -63,9 +63,13 @@ public class Trade_Test extends baseClass {
 		Thread.sleep(5000);
 		Actions act = new Actions(driver);
 		atTheMoney = new atTheMoney(driver);
-	//	System.out.println(atTheMoney.stockValue());
+		Thread.sleep(2000);
+	atTheMoney.stockValue();
+		Thread.sleep(2000);
+//		System.out.println(stm);
  //  atTheMoney.newLocators();
-		atTheMoney.settingScreen();
+	atTheMoney.settingScreen();
+	
 //		FutPage FutPage = new FutPage(driver);
 //	//	FutPage.rowText();
 //		FutPage.FutClick(null , "80");
@@ -77,27 +81,49 @@ public class Trade_Test extends baseClass {
 //		 atTheMoney.newLocators("1300");
 //		 atTheMoney.newLocators("1280");
 //		 atTheMoney.newLocators("1260");
-		//atTheMoney.clickStrike_s("1280", "500", null, "1000" , null);
-		atTheMoney.clickStrike_s("1480", "50", null, "130" , null);
-		atTheMoney.clickStrike_s("1460", "50", null, null , "120");
-		
-//		
-		atTheMoney.clickStrike_s("1450", "60", null , "30" , null);
-		atTheMoney.clickStrike_s("1440", null, "55" , "35" , null);
-		atTheMoney.clickStrike_s("1420", "60", null , "30" , null);
-		atTheMoney.clickStrike_s("1410", "60", null , "30" , null);
-
-   atTheMoney.clickStrike_s("1360", "50", null, null , "120");
-   atTheMoney.clickStrike_s("1330", null, "55" , "35" , null);
-	atTheMoney.clickStrike_s("1320", null, "55" , "35" , null);
-	
-	atTheMoney.clickStrike_s("1280", null, "55" , "35" , null);
-	atTheMoney.clickStrike_s("1260", null, "55" , "35" , null);
+	//
+	atTheMoney.clickStrike_s("1280", "500", null, "1000" , null);
+//		atTheMoney.clickStrike_s("1480", "50", null, "130" , null);
+//		atTheMoney.clickStrike_s("1460", "50", null, null , "120");
+//	//	atTheMoney.clickStrike_s("1450", "60", null , "30" , null);
+//		atTheMoney.clickStrike_s("1440", null, "55" , "35" , null);
+//		atTheMoney.clickStrike_s("1420", "60", null , "30" , null);
+//		atTheMoney.clickStrike_s("1410", "60", null , "30" , null);
+//
+//   atTheMoney.clickStrike_s("1360", "50", null, null , "120");
+//   atTheMoney.clickStrike_s("1330", null, "55" , "35" , null);
+//	atTheMoney.clickStrike_s("1320", null, "55" , "35" , null);
+//	
+//	//atTheMoney.clickStrike_s("1280", null, "55" , "35" , null);
+//	atTheMoney.clickStrike_s("1260", null, "55" , "35" , null);
+	//atTheMoney.settingScreen();
 	FutPage FutPage = new FutPage(driver);
 		FutPage.rowText();
-		FutPage.FutClick(null , "80");
-	FutPage.FutClick("70" , null);
-	FutPage.done();
+		FutPage.FutClick("Jan", null ,"50");
+		Thread.sleep(10000);
+		FutPage.FutClick("Feb", null ,"70");
+		Thread.sleep(10000);
+		FutPage.FutClick("Mar", "10" ,null);
+		//FutPage.FutClick(null , "Jan" , null , "45");
+	
+  FutPage.done();
+  //right side..
+  rightSide rightSide = new rightSide(driver);
+  rightSide.maxprof();
+  rightSide.maxlos();
+ rightSide.breakEve();
+ 
+ rightSide.allRounder();
+//  rightSide.getAllFundValues();
+  Thread.sleep(2000);
+  rightSide.payoffButton();
+  rightSide.tHeader();
+  rightSide.target();
+  rightSide.gptCode();
+ // rightSide.predictionValues();
+  
+  
+  
 	
 //	atTheMoney.clickStrike_s("1240", null, "55" , "35" , null);
 //	atTheMoney.clickStrike_s("1230", "89", null , "35" , null);

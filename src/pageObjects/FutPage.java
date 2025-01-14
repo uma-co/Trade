@@ -25,13 +25,13 @@ public class FutPage extends Components{
 	}
 	@FindBy(xpath="//button//div[text()='Futures']")
 	WebElement FutButton;
-	@FindBy(xpath="//div[@class='sc-hScDUP gmNNGY']/button[@action='BUY']")
+	@FindBy(xpath="//div[@class='sc-DJfgX hJjmnO']/button[@action='BUY']")
 	List<WebElement> FutBuyButton;
 	@FindBy(xpath="//div[@class='data']")
 	List<WebElement> rowText;
-	@FindBy(xpath="//div[@class='sc-hScDUP gmNNGY']/button[@action='SELL']")
+	@FindBy(xpath="//div[@class='sc-DJfgX hJjmnO']/button[@action='SELL']")
 	List<WebElement> FutSellButton;
-	@FindBy(xpath="//td//p[@class='sc-kMOkjD KooNm']")
+	@FindBy(xpath="//td//p[@class='sc-tkKAw jQrUME']")
 	List<WebElement> allElements;
 	@FindBy(xpath="//div//input[@class='sc-caVybk krkDcN lot-qty-input']")
 	List<WebElement> BuyFuturistic;
@@ -68,7 +68,7 @@ String value;
 public String rowText() {
 	FutButton.click();
 	for(int i = 0 ; i < allElements.size() ; i++) {
-		value =	allElements.get(i).getText().split("10")[0].trim().split(" ")[1].trim();
+		value =	allElements.get(i).getText().split("16")[0].trim().split(" ")[1].trim();
 		System.out.println(value);
 		return value;
 		
@@ -76,17 +76,18 @@ public String rowText() {
 	return value;
 	
 }
-public void FutClick(String FutBbButton , String FutSsButton) {
+public void FutClick(String currentMonth  , String FutBbButton , String FutSsButton ) {
 	JavascriptExecutor js = (JavascriptExecutor) driver;
-	String values = rowText();
+//	String values = rowText();
 	FutButton.click();
 	for(int i = 0 ; i < allElements.size(); i++) {
-		value =	allElements.get(i).getText().split("10")[0].trim().split(" ")[1].trim();
+		value =	allElements.get(i).getText().split("16")[0].trim().split(" ")[1].trim();
 		if(FutBbButton != null) {
-			if(value.equalsIgnoreCase("jan")) {
+			if(value.equalsIgnoreCase(currentMonth)) {
 				FutBuyButton.get(i).click();
 				//driver.findElement(By.xpath("//tbody/tr["+i+"]/td[2]/div[1]/div[2]/button[1]/p[1]")).click();
 				i++;
+				
 				WebElement buyinput =		driver.findElement(By.xpath("//tbody/tr["+i+"]/td[2]/div[1]/div[1]/div[1]/input[1]"));
 //				buyinput.sendKeys(Keys.BACK_SPACE);
 				
@@ -101,10 +102,11 @@ public void FutClick(String FutBbButton , String FutSsButton) {
 			}
 			
 			
+			
 		}
 		if(FutSsButton != null) {
 			
-			if(value.equalsIgnoreCase("dec")) {
+			if(value.equalsIgnoreCase(currentMonth)) {
 			FutSellButton.get(i).click();
 			i++;
 			WebElement sellinput =		driver.findElement(By.xpath("//tbody/tr["+i+"]/td[2]/div[1]/div[1]/div[1]/input[1]"));

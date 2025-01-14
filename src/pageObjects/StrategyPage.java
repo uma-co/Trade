@@ -21,7 +21,7 @@ public class StrategyPage extends Components {
 			}
 @FindBy(xpath="//div[@class='buttonsSection']")
 WebElement sec_Button;
-@FindBy(xpath="//button[@class='sc-hKKeuH iaBeSY']")
+@FindBy(xpath="//button[text()='Build a new custom strategy']")
 WebElement newStrategy;
 
 @FindBy(css=".sc-gizGLm.iPAxqi.rowHighlight")
