@@ -1,8 +1,14 @@
 package sensibull;
 
+import java.io.FileNotFoundException;
 import java.time.Duration;
 import java.util.List;
 
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.jspecify.annotations.Nullable;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -29,7 +35,7 @@ WebDriver driver;
 	@FindBy(xpath="//div[@color='errorText']")
 	private WebElement maxLoss;
 	////div[@class='sc-bHKNvF bAGSCD grid-item-breakeven']//p[@class='sc-kMOkjD eBLnkp']
-	@FindBy(css="div[class='sc-DJfgX kqlicD grid-item-breakeven'] p[class='sc-tkKAw hPIuQb']")
+	@FindBy(css="div[class='sc-gYhigD GRTfA grid-item-breakeven'] p[class='sc-kiYtDG dwWFOe']")
 	private WebElement breakEven;
 	@FindBy(xpath="//div//div[@class='sc-bHKNvF jAXKJE']//div[@class='sc-bHKNvF pjAYO']/p[@class='sc-kMOkjD fLfNCO']")
 	 List<WebElement> sixElements;
@@ -65,9 +71,9 @@ WebDriver driver;
 		}
 	}
 	
-	public void gptCode() {
+	public void tableCode() throws FileNotFoundException {
 		 // Locate the table
-        WebElement table = driver.findElement(By.xpath("//table[@class='sc-cCGtLG jztIyi']"));
+        WebElement table = driver.findElement(By.xpath("//table[@class='sc-PfnZo ipbFpb']"));
 
         // Locate all rows in the table body
         List<WebElement> rows = table.findElements(By.xpath(".//tbody/tr"));
@@ -78,13 +84,24 @@ WebDriver driver;
         System.out.println("Data from column " + columnIndex + ":");
         int n=0;
        for(int i = 0 ; i < rows.size(); i++) {
+    	   
     	String row =   rows.get(i).getText();
+//    	XSSFWorkbook sheet = writeADataintoexcel();
+//    	 XSSFSheet sheets =  sheet.createSheet();
+//    	XSSFRow row1 = sheets.createRow(i);
+    	 
+    	
     	System.out.println("row :" + n++);
     	System.out.println(row);
+//    	for(int j = 0 ; j < rows.size(); j++) {
+//    	XSSFCell cell =	row1.createCell(j);
+//    	cell.setCellValue(row[i][j]);
+    		
+    	}}
     //	WebElement cell= row.findElement(By.xpath("./td[" + columnIndex + "]"));
 // System.out.println(cell.getText());
     
-       }
+       
 //        for (WebElement row : rows) {
 //            // Extract the cell in the specified column
 //        	row.findElements(By.xpath(null))
@@ -94,7 +111,8 @@ WebDriver driver;
 //            // Print the extracted data
 //            System.out.println(cellData);
 //        }
-	}
+	
+	
 	public void predictionValues() {
 	
 		
@@ -141,8 +159,8 @@ WebDriver driver;
 	System.out.println("MarginNeeded " + marginNeeded.getText());	
 	}
 	public void allRounder() {
-		for(int k=0 ; k < driver.findElements(By.xpath("(//div[@class='sc-DJfgX ipPogA'])[2]//div[@class='sc-DJfgX UHfPu']//p[@class='sc-tkKAw hUCttA']")).size() ; k++ ) {
-			String vales =  driver.findElements(By.xpath("(//div[@class='sc-DJfgX ipPogA'])[2]//div[@class='sc-DJfgX UHfPu']//p[@class='sc-tkKAw hUCttA']")).get(k).getText();
+		for(int k=0 ; k < driver.findElements(By.xpath("(//div[@class='sc-gYhigD edTsfv'])[2]//div[@class='sc-gYhigD kFhtfF']//p[@class='sc-kiYtDG hvJrUG']")).size() ; k++ ) {
+			String vales =  driver.findElements(By.xpath("(//div[@class='sc-gYhigD edTsfv'])[2]//div[@class='sc-gYhigD kFhtfF']//p[@class='sc-kiYtDG hvJrUG']")).get(k).getText();
 		System.out.println("FundsNeeded , Margin Value , Margin Available:" +vales);
 		}
 		

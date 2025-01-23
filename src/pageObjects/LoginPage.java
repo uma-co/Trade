@@ -19,7 +19,7 @@ public class LoginPage extends Components{
 	
 	@FindBy(xpath="//span[text()='Login']")
 	WebElement LoginButton;
-	@FindBy(xpath="(//button[@class='MuiButtonBase-root MuiButton-root jss148 MuiButton-contained']/span)[1]")
+	@FindBy(xpath="(//button[@class='MuiButtonBase-root MuiButton-root jss141 MuiButton-contained']/span)[1]")
 	WebElement s_button;
 	@FindBy(id="userid")
 	WebElement username;

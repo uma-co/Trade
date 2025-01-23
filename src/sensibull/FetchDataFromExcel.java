@@ -142,7 +142,7 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 		public static void main(String[] args) throws IOException, InterruptedException, TimeoutException {
 
 			String stock = null;
-		    double roundoff = 0;
+		    long roundoff = 0;
 		    double strike = 0;
 		    double atm;
 		    String atmoption = null;
@@ -225,7 +225,7 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 			stock = cell.getStringCellValue();
 			break;
 			case 2:
-				roundoff = cell.getNumericCellValue();
+				roundoff = (long) cell.getNumericCellValue();
 				break;
 			
 		
@@ -368,10 +368,20 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 			//lp.goTo();
 			sp.section_Button();
 			atTheMoney = new atTheMoney(driver);
-		double strike1 = 	atTheMoney.stockValue();
+			
+			long strike1 = Math.round(atTheMoney.stockValue()); 
+			
+	
+//	String[] e1  = d1.split(".");
+//	String part = e1[0];
+//	System.out.println("mm"+part);
+	
+			
 		System.out.println(strike1);
+		
 		atm = fetchatm(strike1,roundoff);
 				//clickstrike()
+		atTheMoney.settingScreen();
 		 
 
 
@@ -381,168 +391,212 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 		
 		if(ls10 != null)
 		{
-			strike1 = atm + ( 10 * roundoff);
+			strike1 =  (long) (atm + ( 10 * roundoff));
 			String str[] = ls10.split(",",-1);
-		String str_strike = Double.toString(strike1);
+	//	String str_strike = Double.toString(strike1);
 	//	int newval = Integer.parseInt(str_strike.split(".")[0]);
 		//String v_strike = Integer.toString(newval);
-		//String v_strike = str_strike.split(".")[0];
-			atTheMoney.clickStrike_s(str_strike,str[0], str[1],str[2],str[3]);
+	//	String v_strike = str_strike.split(".")[0];
+			String v_strike =	String.valueOf(strike1);
+			atTheMoney.clickStrike_s(v_strike,str[0], str[1],str[2],str[3]);
+			
+		    
+}
 		
-		
-		}
 		
 		if(ls9 != null)
 		{
-			strike1 = atm + ( 9 * roundoff);
-			String str[] = ls9.split(",");
-			String	str_strike = Double.toString(strike1);
-			atTheMoney.clickStrike_s(str_strike,str[0], str[1],str[2],str[3]);
+			strike1 = (long) (atm + ( 9 * roundoff));
+			String str[] = ls9.split("," , -1);
+			String v_strike =	String.valueOf(strike1);
+			atTheMoney.clickStrike_s(v_strike,str[0], str[1],str[2],str[3]);
 		}
+		FutPage FutPage = new FutPage(driver);
+		FutPage.done();
+		  //right side..
+		  rightSide rightSide = new rightSide(driver);
+		  rightSide.maxprof();
+		  rightSide.maxlos();
+		 rightSide.breakEve();
+		 
+		 rightSide.allRounder();
+		//  rightSide.getAllFundValues();
+		  Thread.sleep(2000);
+		  rightSide.payoffButton();
+		 
+		System.out.println("payOff-Table");  
+		rightSide.tableCode();
 		if(ls8 != null)
 		{
-			strike1 = atm + ( 8 * roundoff);
-			String str[] = ls8.split(",");
-			String	str_strike = Double.toString(strike1);
-			atTheMoney.clickStrike_s(str_strike,str[0], str[1],str[2],str[3]);
+			strike1 = (long) (atm + ( 8 * roundoff));
+			String str[] = ls8.split("," , -1);
+			String v_strike =	String.valueOf(strike1);
+			atTheMoney.clickStrike_s(v_strike,str[0], str[1],str[2],str[3]);
 		}
 		if(ls7 != null)
 		{
-			strike1 = atm + ( 7 * roundoff);
-			String str[] = ls7.split(",");
-			String	str_strike = Double.toString(strike1);
-			atTheMoney.clickStrike_s(str_strike,str[0], str[1],str[2],str[3]);
+			strike1 = (long) (atm + ( 7 * roundoff));
+			String str[] = ls7.split("," , -1);
+			String v_strike =	String.valueOf(strike1);
+			atTheMoney.clickStrike_s(v_strike,str[0], str[1],str[2],str[3]);
 		}
 		if(ls6 != null)
 		{
-			strike1 = atm + ( 6 * roundoff);
-			String str[] = ls6.split(",");
-			String	str_strike = Double.toString(strike1);
-			atTheMoney.clickStrike_s(str_strike,str[0], str[1],str[2],str[3]);
+			strike1 = (long) (atm + ( 6 * roundoff));
+			String str[] = ls6.split("," , -1);
+			String v_strike =	String.valueOf(strike1);
+			atTheMoney.clickStrike_s(v_strike,str[0], str[1],str[2],str[3]);
 		}
 		if(ls5 != null)
 		{
-			strike1 = atm + ( 5 * roundoff);
-			String str[] = ls5.split(",");
-			String	str_strike = Double.toString(strike1);
-			atTheMoney.clickStrike_s(str_strike,str[0], str[1],str[2],str[3]);
+			strike1 = (long) (atm + ( 5 * roundoff));
+			String str[] = ls5.split("," , -1);
+			String v_strike =	String.valueOf(strike1);
+			atTheMoney.clickStrike_s(v_strike,str[0], str[1],str[2],str[3]);
 		}
 		if(ls4 != null)
 		{
-			strike1 = atm + ( 4 * roundoff);
-			String str[] = ls4.split(",");
-			String	str_strike = Double.toString(strike1);
-			atTheMoney.clickStrike_s(str_strike,str[0], str[1],str[2],str[3]);
+			strike1 = (long) (atm + ( 4 * roundoff));
+			String str[] = ls4.split("," , -1);
+			String v_strike =	String.valueOf(strike1);
+			atTheMoney.clickStrike_s(v_strike,str[0], str[1],str[2],str[3]);
 		}
 		if(ls3 != null)
 		{
-			strike1 = atm + ( 3 * roundoff);
+			strike1 = (long) (atm + ( 3 * roundoff));
 			String str[] = ls3.split(",");
-			String	str_strike = Double.toString(strike1);
-			atTheMoney.clickStrike_s(str_strike,str[0], str[1],str[2],str[3]);
+			String v_strike =	String.valueOf(strike1);
+			atTheMoney.clickStrike_s(v_strike,str[0], str[1],str[2],str[3]);
 		}
 		if(ls2 != null)
 		{
-			strike1 = atm + ( 2 * roundoff);
-			String str[] = ls2.split(",");
-			String	str_strike = Double.toString(strike1);
-			atTheMoney.clickStrike_s(str_strike,str[0], str[1],str[2],str[3]);
+			strike1 = (long) (atm + ( 2 * roundoff));
+			String str[] = ls2.split("," , -1);
+			String v_strike =	String.valueOf(strike1);
+			atTheMoney.clickStrike_s(v_strike,str[0], str[1],str[2],str[3]);
 		}
 		if(ls1 != null)
 		{
-			strike1 = atm + ( 1 * roundoff);
-			String str[] = ls1.split(",");
-			String	str_strike = Double.toString(strike1);
-			atTheMoney.clickStrike_s(str_strike,str[0], str[1],str[2],str[3]);
+			strike1 = (long) (atm + ( 1 * roundoff));
+			String str[] = ls1.split("," , -1);
+			String v_strike =	String.valueOf(strike1);
+			atTheMoney.clickStrike_s(v_strike,str[0], str[1],str[2],str[3]);
 		}
-		if(us10 != null)
-		{
-			strike1 = atm + ( 10 * roundoff);
-			String str[] = us10.split(",");
-			String	str_strike = Double.toString(strike1);
-			atTheMoney.clickStrike_s(str_strike,str[0], str[1],str[2],str[3]);
-		}
-		if(us9 != null)
-		{
-			strike1 = atm + ( 9 * roundoff);
-			String str[] = us9.split(",");
-			String	str_strike = Double.toString(strike1);
-			atTheMoney.clickStrike_s(str_strike,str[0], str[1],str[2],str[3]);
-		}
-		if(us8 != null)
-		{
-			strike1 = atm + ( 8 * roundoff);
-			String str[] = us8.split(",");
-			String	str_strike = Double.toString(strike1);
-			atTheMoney.clickStrike_s(str_strike,str[0], str[1],str[2],str[3]);
-		}
-		if(us7 != null)
-		{
-			strike1 = atm + ( 7 * roundoff);
-			String str[] = us7.split(",");
-			String	str_strike = Double.toString(strike1);
-			atTheMoney.clickStrike_s(str_strike,str[0], str[1],str[2],str[3]);
-		}
-		if(us6 != null)
-		{
-			strike1 = atm + ( 6 * roundoff);
-			String str[] = us6.split(",");
-			String	str_strike = Double.toString(strike1);
-			atTheMoney.clickStrike_s(str_strike,str[0], str[1],str[2],str[3]);
-		}
-		if(us5 != null)
-		{
-			strike1 = atm + ( 5 * roundoff);
-			String str[] = us5.split(",");
-			String	str_strike = Double.toString(strike1);
-			atTheMoney.clickStrike_s(str_strike,str[0], str[1],str[2],str[3]);
-		}
-		if(us4 != null)
-		{
-			strike1 = atm + ( 4 * roundoff);
-			String str[] = us4.split(",");
-			String	str_strike = Double.toString(strike1);
-			atTheMoney.clickStrike_s(str_strike,str[0], str[1],str[2],str[3]);
-		}
-		if(us3 != null)
-		{
-			strike1 = atm + ( 3 * roundoff);
-			String str[] = us3.split(",");
-			String	str_strike = Double.toString(strike1);
-			atTheMoney.clickStrike_s(str_strike,str[0], str[1],str[2],str[3]);
-		}
-		if(us2 != null)
-		{
-			strike1 = atm + ( 2 * roundoff);
-			String str[] = us2.split(",");
-			String	str_strike = Double.toString(strike1);
-			atTheMoney.clickStrike_s(str_strike,str[0], str[1],str[2],str[3]);
-		}
-		if(us1 != null)
-		{
-			strike1 = atm + ( 1 * roundoff);
-			String str[] = us1.split(",");
-			String	str_strike = Double.toString(strike1);
-			atTheMoney.clickStrike_s(str_strike,str[0], str[1],str[2],str[3]);
-		}
+//		if(ls2 != null)
+//		{
+//			strike1 = (long) (atm + ( 2 * roundoff));
+//			String str[] = ls2.split("," , -1);
+//			String v_strike =	String.valueOf(strike1);
+//			atTheMoney.clickStrike_s(v_strike,str[0], str[1],str[2],str[3]);
+//		}
+//		if(ls1 != null)
+//		{
+//			strike1 = (long) (atm + ( 2 * roundoff));
+//			String str[] = ls1.split("," , -1);
+//			String v_strike =	String.valueOf(strike1);
+//			atTheMoney.clickStrike_s(v_strike,str[0], str[1],str[2],str[3]);
+//		}
+//		if(us10 != null)
+//		{
+//			strike1 = atm + ( 10 * roundoff);
+//			String str[] = us10.split(",");
+//			String	str_strike = Double.toString(strike1);
+//			atTheMoney.clickStrike_s(str_strike,str[0], str[1],str[2],str[3]);
+//		}
+//		if(us9 != null)
+//		{
+//			strike1 = atm + ( 9 * roundoff);
+//			String str[] = us9.split(",");
+//			String	str_strike = Double.toString(strike1);
+//			atTheMoney.clickStrike_s(str_strike,str[0], str[1],str[2],str[3]);
+//		}
+//		if(us8 != null)
+//		{
+//			strike1 = atm + ( 8 * roundoff);
+//			String str[] = us8.split(",");
+//			String	str_strike = Double.toString(strike1);
+//			atTheMoney.clickStrike_s(str_strike,str[0], str[1],str[2],str[3]);
+//		}
+//		if(us7 != null)
+//		{
+//			strike1 = atm + ( 7 * roundoff);
+//			String str[] = us7.split(",");
+//			String	str_strike = Double.toString(strike1);
+//			atTheMoney.clickStrike_s(str_strike,str[0], str[1],str[2],str[3]);
+//		}
+//		if(us6 != null)
+//		{
+//			strike1 = atm + ( 6 * roundoff);
+//			String str[] = us6.split(",");
+//			String	str_strike = Double.toString(strike1);
+//			atTheMoney.clickStrike_s(str_strike,str[0], str[1],str[2],str[3]);
+//		}
+//		if(us5 != null)
+//		{
+//			strike1 = atm + ( 5 * roundoff);
+//			String str[] = us5.split(",");
+//			String	str_strike = Double.toString(strike1);
+//			atTheMoney.clickStrike_s(str_strike,str[0], str[1],str[2],str[3]);
+//		}
+//		if(us4 != null)
+//		{
+//			strike1 = atm + ( 4 * roundoff);
+//			String str[] = us4.split(",");
+//			String	str_strike = Double.toString(strike1);
+//			atTheMoney.clickStrike_s(str_strike,str[0], str[1],str[2],str[3]);
+//		}
+//		if(us3 != null)
+//		{
+//			strike1 = atm + ( 3 * roundoff);
+//			String str[] = us3.split(",");
+//			String	str_strike = Double.toString(strike1);
+//			atTheMoney.clickStrike_s(str_strike,str[0], str[1],str[2],str[3]);
+//		}
+//		if(us2 != null)
+//		{
+//			strike1 = atm + ( 2 * roundoff);
+//			String str[] = us2.split(",");
+//			String	str_strike = Double.toString(strike1);
+//			atTheMoney.clickStrike_s(str_strike,str[0], str[1],str[2],str[3]);
+//		}
+//		if(us1 != null)
+//		{
+//			strike1 = atm + ( 1 * roundoff);
+//			String str[] = us1.split(",");
+//			String	str_strike = Double.toString(strike1);
+//			atTheMoney.clickStrike_s(str_strike,str[0], str[1],str[2],str[3]);
+//		}
+//		
+	//	FutPage FutPage = new FutPage(driver);
+//		if( cmf != null)
+//		{
+//			strike1 = (long) (atm + ( 1 * roundoff));
+//			String str[] = ls9.split("," , -1);
+//			String v_strike =	String.valueOf(strike1);
+//			FutPage.FutClick(v_strike, str[0], str[1]);
+//		}
+//		if(nmf != null)
+//		{
+//			strike1 = atm + ( 9 * roundoff);
+//			String str[] = nmf.split(",");
+//			String	str_strike = Double.toString(strike1);
+//			FutPage.FutClick(str_strike, str[0], str[1]);
+//		}
 		
-		FutPage FutPage = new FutPage(driver);
-		if(cmf != null)
-		{
-			strike1 = atm + ( 9 * roundoff);
-			String str[] = cmf.split(",");
-			String	str_strike = Double.toString(strike1);
-			FutPage.FutClick(str_strike, str[0], str[1]);
-		}
-		if(nmf != null)
-		{
-			strike1 = atm + ( 9 * roundoff);
-			String str[] = nmf.split(",");
-			String	str_strike = Double.toString(strike1);
-			FutPage.FutClick(str_strike, str[0], str[1]);
-		}
-		
-		
+//		FutPage.done();
+//		  //right side..
+//		  rightSide rightSide = new rightSide(driver);
+//		  rightSide.maxprof();
+//		  rightSide.maxlos();
+//		 rightSide.breakEve();
+//		 
+//		 rightSide.allRounder();
+//		//  rightSide.getAllFundValues();
+//		  Thread.sleep(2000);
+//		  rightSide.payoffButton();
+//		  rightSide.tHeader();
+//		  rightSide.target();
+//		  rightSide.tableCode();
 		
 		if (atmoption != null)
 		{
@@ -607,8 +661,8 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 		{
 			
 			
-		       double num,n = 0;
-		       double x = 0, atm;
+			 double num,n = 0;
+			 double x = 0, atm;
 		  
 		       
 		       x = stockprice % roundoff;

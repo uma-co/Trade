@@ -1,7 +1,13 @@
 package abstractComponents;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.time.Duration;
 
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -9,7 +15,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class Components {
+public class Components<XSSFWorkBook> {
 
 	WebDriver driver;
 	public Components(WebDriver driver){
@@ -38,6 +44,24 @@ public class Components {
 		wait.until(ExpectedConditions.visibilityOf(finby)).click();;
 		
 		
+		
+	}
+	public  XSSFWorkbook writeADataintoexcel() throws FileNotFoundException  {
+		FileInputStream fis = new FileInputStream(new File("C:\\Users\\umara\\Downloads\\writeStocktest.xls"));  
+		//creating workbook instance that refers to .xls file  
+		
+			XSSFWorkbook wb = null;
+			try {
+				wb = new XSSFWorkbook(fis);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			wb.createSheet("writeData");
+			return wb;
+			
+		
+		 
 		
 	}
 	

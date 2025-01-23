@@ -83,19 +83,19 @@ public class Trade_Test extends baseClass {
 //		 atTheMoney.newLocators("1260");
 	//
 	atTheMoney.clickStrike_s("1280", "500", null, "1000" , null);
-//		atTheMoney.clickStrike_s("1480", "50", null, "130" , null);
-//		atTheMoney.clickStrike_s("1460", "50", null, null , "120");
-//	//	atTheMoney.clickStrike_s("1450", "60", null , "30" , null);
-//		atTheMoney.clickStrike_s("1440", null, "55" , "35" , null);
-//		atTheMoney.clickStrike_s("1420", "60", null , "30" , null);
-//		atTheMoney.clickStrike_s("1410", "60", null , "30" , null);
-//
-//   atTheMoney.clickStrike_s("1360", "50", null, null , "120");
-//   atTheMoney.clickStrike_s("1330", null, "55" , "35" , null);
-//	atTheMoney.clickStrike_s("1320", null, "55" , "35" , null);
-//	
-//	//atTheMoney.clickStrike_s("1280", null, "55" , "35" , null);
-//	atTheMoney.clickStrike_s("1260", null, "55" , "35" , null);
+		atTheMoney.clickStrike_s("1480", "50", null, "130" , null);
+		atTheMoney.clickStrike_s("1460", "50", null, null , "120");
+	//	atTheMoney.clickStrike_s("1450", "60", null , "30" , null);
+		atTheMoney.clickStrike_s("1440", null, "55" , "35" , null);
+		atTheMoney.clickStrike_s("1420", "60", null , "30" , null);
+		atTheMoney.clickStrike_s("1410", "60", null , "30" , null);
+
+   atTheMoney.clickStrike_s("1360", "50", null, null , "120");
+   atTheMoney.clickStrike_s("1330", null, "55" , "35" , null);
+	atTheMoney.clickStrike_s("1320", null, "55" , "35" , null);
+	
+	//atTheMoney.clickStrike_s("1280", null, "55" , "35" , null);
+	atTheMoney.clickStrike_s("1260", null, "55" , "35" , null);
 	//atTheMoney.settingScreen();
 	FutPage FutPage = new FutPage(driver);
 		FutPage.rowText();
@@ -119,7 +119,7 @@ public class Trade_Test extends baseClass {
   rightSide.payoffButton();
   rightSide.tHeader();
   rightSide.target();
-  rightSide.gptCode();
+  rightSide.tableCode();
  // rightSide.predictionValues();
   
   
