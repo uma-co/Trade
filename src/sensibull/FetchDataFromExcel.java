@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.FormulaEvaluator;
 import org.apache.poi.ss.usermodel.Row;
 import org.openqa.selenium.By;
@@ -364,7 +365,33 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 			Thread.sleep(15000);
 			//sp.section_Button();
 			Thread.sleep(3000);
-			driver.navigate().to("https://web.sensibull.com/option-strategy-builder?instrument_symbol=RELIANCE");
+			
+			for (int k= 1 ;k <= sheet.getLastRowNum() ; k++) { // Loop through each row in the sheet
+			    // Assuming the stock name is in the first column (index 0)
+			Row r =	sheet.getRow(k);
+			    
+           if(r != null) {
+        	   
+        	   Cell cell = r.getCell(0);
+           
+			    
+			    if (cell != null && cell.getCellType() == CellType.STRING) {
+			       
+			        String stock1 = cell.getStringCellValue().trim(); 
+
+			        
+			        driver.navigate().to("https://web.sensibull.com/option-strategy-builder?instrument_symbol=" + stock1);
+
+			       
+			        System.out.println("Processing stock: " + stock1);
+
+			        
+			        Thread.sleep(5000); 
+			    
+			
+
+			//for(int k =stock.length()-1 ; k >=0 ;) {
+		//	driver.navigate().to("https://web.sensibull.com/option-strategy-builder?instrument_symbol="+stock+"");
 			//lp.goTo();
 			sp.section_Button();
 			atTheMoney = new atTheMoney(driver);
@@ -377,7 +404,7 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 //	System.out.println("mm"+part);
 	
 			
-		System.out.println(strike1);
+		System.out.print("Strike :" + strike1);
 		
 		atm = fetchatm(strike1,roundoff);
 				//clickstrike()
@@ -424,64 +451,64 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 		  Thread.sleep(2000);
 		  rightSide.payoffButton();
 		 
-		System.out.println("payOff-Table");  
-		rightSide.tableCode();
-		if(ls8 != null)
-		{
-			strike1 = (long) (atm + ( 8 * roundoff));
-			String str[] = ls8.split("," , -1);
-			String v_strike =	String.valueOf(strike1);
-			atTheMoney.clickStrike_s(v_strike,str[0], str[1],str[2],str[3]);
-		}
-		if(ls7 != null)
-		{
-			strike1 = (long) (atm + ( 7 * roundoff));
-			String str[] = ls7.split("," , -1);
-			String v_strike =	String.valueOf(strike1);
-			atTheMoney.clickStrike_s(v_strike,str[0], str[1],str[2],str[3]);
-		}
-		if(ls6 != null)
-		{
-			strike1 = (long) (atm + ( 6 * roundoff));
-			String str[] = ls6.split("," , -1);
-			String v_strike =	String.valueOf(strike1);
-			atTheMoney.clickStrike_s(v_strike,str[0], str[1],str[2],str[3]);
-		}
-		if(ls5 != null)
-		{
-			strike1 = (long) (atm + ( 5 * roundoff));
-			String str[] = ls5.split("," , -1);
-			String v_strike =	String.valueOf(strike1);
-			atTheMoney.clickStrike_s(v_strike,str[0], str[1],str[2],str[3]);
-		}
-		if(ls4 != null)
-		{
-			strike1 = (long) (atm + ( 4 * roundoff));
-			String str[] = ls4.split("," , -1);
-			String v_strike =	String.valueOf(strike1);
-			atTheMoney.clickStrike_s(v_strike,str[0], str[1],str[2],str[3]);
-		}
-		if(ls3 != null)
-		{
-			strike1 = (long) (atm + ( 3 * roundoff));
-			String str[] = ls3.split(",");
-			String v_strike =	String.valueOf(strike1);
-			atTheMoney.clickStrike_s(v_strike,str[0], str[1],str[2],str[3]);
-		}
-		if(ls2 != null)
-		{
-			strike1 = (long) (atm + ( 2 * roundoff));
-			String str[] = ls2.split("," , -1);
-			String v_strike =	String.valueOf(strike1);
-			atTheMoney.clickStrike_s(v_strike,str[0], str[1],str[2],str[3]);
-		}
-		if(ls1 != null)
-		{
-			strike1 = (long) (atm + ( 1 * roundoff));
-			String str[] = ls1.split("," , -1);
-			String v_strike =	String.valueOf(strike1);
-			atTheMoney.clickStrike_s(v_strike,str[0], str[1],str[2],str[3]);
-		}
+		System.out.println("  payOff-Table");  
+	//	rightSide.tableCode();
+//		if(ls8 != null)
+//		{
+//			strike1 = (long) (atm + ( 8 * roundoff));
+//			String str[] = ls8.split("," , -1);
+//			String v_strike =	String.valueOf(strike1);
+//			atTheMoney.clickStrike_s(v_strike,str[0], str[1],str[2],str[3]);
+//		}
+//		if(ls7 != null)
+//		{
+//			strike1 = (long) (atm + ( 7 * roundoff));
+//			String str[] = ls7.split("," , -1);
+//			String v_strike =	String.valueOf(strike1);
+//			atTheMoney.clickStrike_s(v_strike,str[0], str[1],str[2],str[3]);
+//		}
+//		if(ls6 != null)
+//		{
+//			strike1 = (long) (atm + ( 6 * roundoff));
+//			String str[] = ls6.split("," , -1);
+//			String v_strike =	String.valueOf(strike1);
+//			atTheMoney.clickStrike_s(v_strike,str[0], str[1],str[2],str[3]);
+//		}
+//		if(ls5 != null)
+//		{
+//			strike1 = (long) (atm + ( 5 * roundoff));
+//			String str[] = ls5.split("," , -1);
+//			String v_strike =	String.valueOf(strike1);
+//			atTheMoney.clickStrike_s(v_strike,str[0], str[1],str[2],str[3]);
+//		}
+//		if(ls4 != null)
+//		{
+//			strike1 = (long) (atm + ( 4 * roundoff));
+//			String str[] = ls4.split("," , -1);
+//			String v_strike =	String.valueOf(strike1);
+//			atTheMoney.clickStrike_s(v_strike,str[0], str[1],str[2],str[3]);
+//		}
+//		if(ls3 != null)
+//		{
+//			strike1 = (long) (atm + ( 3 * roundoff));
+//			String str[] = ls3.split(",");
+//			String v_strike =	String.valueOf(strike1);
+//			atTheMoney.clickStrike_s(v_strike,str[0], str[1],str[2],str[3]);
+//		}
+//		if(ls2 != null)
+//		{
+//			strike1 = (long) (atm + ( 2 * roundoff));
+//			String str[] = ls2.split("," , -1);
+//			String v_strike =	String.valueOf(strike1);
+//			atTheMoney.clickStrike_s(v_strike,str[0], str[1],str[2],str[3]);
+//		}
+//		if(ls1 != null)
+//		{
+//			strike1 = (long) (atm + ( 1 * roundoff));
+//			String str[] = ls1.split("," , -1);
+//			String v_strike =	String.valueOf(strike1);
+//			atTheMoney.clickStrike_s(v_strike,str[0], str[1],str[2],str[3]);
+//		}
 //		if(ls2 != null)
 //		{
 //			strike1 = (long) (atm + ( 2 * roundoff));
@@ -598,11 +625,11 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 //		  rightSide.target();
 //		  rightSide.tableCode();
 		
-		if (atmoption != null)
-		{
-			String str[] = atmoption.split(",");
-			
-		}
+//		if (atmoption != null)
+//		{
+//			String str[] = atmoption.split(",");
+//			
+//		}
 		
 		
 			
@@ -641,7 +668,11 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 			
 
 			System.out.println();  
-			}  		
+		
+			    }
+           }
+			}
+		}
 			
 
 			
@@ -726,8 +757,11 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 							driver.findElement(By.xpath("//tbody/tr['"+i+"']/td[5]/div[1]/div[2]/div[2]/div[1]/div[1]/div[1]/input[1]")).sendKeys(PutSell);
 							
 							}}
+					
 						}
+				
 					}
+		 
 					
 
 

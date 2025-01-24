@@ -501,7 +501,7 @@ catch(Exception e){
 							driver.findElement(By.xpath("//tbody/tr["+ (i + 1) +"]/td[2]/div[1]/div[3]/div[2]/div[1]/input[1]")).sendKeys(CallSell);
 //					ReliChrocallLot.sendKeys(Keys.BACK_SPACE);
 //					driver.findElement(By.xpath("//tbody/tr['"+i+"']/td[2]/div[1]/div[2]/div[2]/div[1]/div[1]/div[1]/input[1]")).sendKeys(CallSell);
-							System.out.println("callsell has executed");
+							System.out.println("  callsell has executed");
 							
 				}
 
@@ -521,7 +521,7 @@ catch(Exception e){
 					driver.findElement(By.xpath("//tbody/tr["+ (i + 1) +"]/td[2]/div[1]/div[3]/div[2]/div[1]/input[1]")).sendKeys(Keys.BACK_SPACE);
 				//	ReliChrocallLot.sendKeys(Keys.BACK_SPACE);
 					driver.findElement(By.xpath("//tbody/tr["+ (i + 1) +"]/td[2]/div[1]/div[3]/div[2]/div[1]/input[1]")).sendKeys(CallBuy);
-					System.out.println("callbuy has executed");
+					System.out.println("  callbuy has executed");
 					
 				 }
 				 if(Integer.parseInt(PutBuy) > 0) {
@@ -538,7 +538,7 @@ catch(Exception e){
 						//  putLot.sendKeys(Keys.BACK_SPACE);
 						  driver.findElement(By.xpath("//tbody/tr["+ (i + 1) +"]/td[5]/div[1]/div[3]/div[2]/div[1]/input[1]")).sendKeys(PutBuy);
 						  // driver.findElement(By.xpath("//tbody/tr["+i+"]/td[5]/div[1]/div[2]/div[2]/div[1]/div[1]/div[1]/input[1]")).sendKeys(PutBuy);
-						  System.out.println("putbuy has executed");
+						  System.out.println("  putbuy has executed");
 						  
 						}
 				 else if(Integer.parseInt(PutSell) > 0){
@@ -554,7 +554,7 @@ catch(Exception e){
 //					putLot.sendKeys(Keys.BACK_SPACE);
 //					driver.findElement(By.xpath("//tbody/tr['"+i+"']/td[5]/div[1]/div[2]/div[2]/div[1]/div[1]/div[1]/input[1]")).sendKeys(PutSell);
 					 driver.findElement(By.xpath("//tbody/tr["+ (i + 1) +"]/td[5]/div[1]/div[3]/div[2]/div[1]/input[1]")).sendKeys(PutSell);
-					 System.out.println("putsell has executed");
+					 System.out.println("  putsell has executed");
 					 
 					}
 					

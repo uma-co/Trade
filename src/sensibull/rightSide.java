@@ -35,7 +35,7 @@ WebDriver driver;
 	@FindBy(xpath="//div[@color='errorText']")
 	private WebElement maxLoss;
 	////div[@class='sc-bHKNvF bAGSCD grid-item-breakeven']//p[@class='sc-kMOkjD eBLnkp']
-	@FindBy(css="div[class='sc-gYhigD GRTfA grid-item-breakeven'] p[class='sc-kiYtDG dwWFOe']")
+	@FindBy(css="div[class='sc-gYhigD GRTfA grid-item-breakeven'] p[class='sc-kiYtDG fTPBtB']")
 	private WebElement breakEven;
 	@FindBy(xpath="//div//div[@class='sc-bHKNvF jAXKJE']//div[@class='sc-bHKNvF pjAYO']/p[@class='sc-kMOkjD fLfNCO']")
 	 List<WebElement> sixElements;
@@ -148,7 +148,7 @@ WebDriver driver;
 		JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
 
         // Execute JavaScript to click the element
-   System.out.println("Maximum_Profit : " +jsExecutor.executeScript("return arguments[0].innerText;", maxProfit));
+   System.out.print("  Maximum_Profit : " +jsExecutor.executeScript("return arguments[0].innerText;", maxProfit));
 		// System.out.println(maxProfit.getText());
    
 	}
@@ -161,7 +161,7 @@ WebDriver driver;
 	public void allRounder() {
 		for(int k=0 ; k < driver.findElements(By.xpath("(//div[@class='sc-gYhigD edTsfv'])[2]//div[@class='sc-gYhigD kFhtfF']//p[@class='sc-kiYtDG hvJrUG']")).size() ; k++ ) {
 			String vales =  driver.findElements(By.xpath("(//div[@class='sc-gYhigD edTsfv'])[2]//div[@class='sc-gYhigD kFhtfF']//p[@class='sc-kiYtDG hvJrUG']")).get(k).getText();
-		System.out.println("FundsNeeded , Margin Value , Margin Available:" +vales);
+		System.out.print("  FundsNeeded , Margin Value , Margin Available:" +vales);
 		}
 		
 	}
@@ -170,13 +170,13 @@ WebDriver driver;
 		JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
 
         // Execute JavaScript to click the element
-   System.out.println("Maximum_Loss : " + jsExecutor.executeScript("return arguments[0].innerText;", maxLoss));
+   System.out.print("   Maximum_Loss : " + jsExecutor.executeScript("return arguments[0].innerText;", maxLoss));
 		// System.out.println(maxProfit.getText());
 //	System.out.println(maxLoss.getText());	
 	}
 	public void breakEve() {
 		JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
-		 System.out.println("BreakEven : " +jsExecutor.executeScript("return arguments[0].innerText;", breakEven));
+		 System.out.print("BreakEven : " +jsExecutor.executeScript("return arguments[0].innerText;", breakEven));
 //	System.out.println(breakEven.getText());
 	}
 	public void getAllFundValues() {
