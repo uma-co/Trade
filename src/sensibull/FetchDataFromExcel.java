@@ -2,6 +2,7 @@ package sensibull;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -9,6 +10,8 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.FormulaEvaluator;
 import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
@@ -24,7 +27,9 @@ import utility.baseClass;
 	
 	import java.io.File;  
 	import java.io.FileInputStream;  
+	import java.io.FileOutputStream; 
 	import java.io.IOException;
+import java.util.Iterator;
 import java.util.concurrent.TimeoutException;
 
 import org.apache.poi.hssf.usermodel.HSSFSheet;  
@@ -139,13 +144,64 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 	}
 
 	public class FetchDataFromExcel extends baseClass {
+		
+		
+		public static int getstrikecolumn() throws IOException {
+			FileInputStream fis = new FileInputStream(new File("C:\\Users\\umara\\Downloads\\Stocktest.xlsx"));  
+			//creating workbook instance that refers to .xls file  
+			XSSFWorkbook wb=new XSSFWorkbook(fis); 
+			
+			XSSFSheet sheet=wb.getSheetAt(0);
+			Iterator<Row>  rows= sheet.iterator();// sheet is collection of rows		
+			Row firstrow= rows.next();		
+			Iterator<Cell> ce=firstrow.cellIterator();//row is collection of cells
+			int k=0;	
+			int coloumn = 0;	
+			while(ce.hasNext())		{	
+				Cell value=ce.next();
+				System.out.println(value.getStringCellValue());
+			if(value.getStringCellValue().equalsIgnoreCase("strike"))		{	
+				coloumn=k;
+			}
+			k++;	
+			}		
+			System.out.println(coloumn);
+			return coloumn;
+			}
+		public static int getprofitcolumn() throws IOException {
+			FileInputStream fis = new FileInputStream(new File("C:\\Users\\umara\\Downloads\\Stocktest.xlsx"));  
+			//creating workbook instance that refers to .xls file  
+			HSSFWorkbook wb=new HSSFWorkbook(fis);  
+			HSSFSheet sheet=wb.getSheetAt(0);
+			Iterator<Row> s = sheet.iterator();
+			
+			Row firstrow =	s.next();
+		Iterator<Cell> cc = 	firstrow.cellIterator();
+		
+		
+		int column2 =0;
+		int column3 =0;
+		int column4 =0;
+		int column5 =0;
+		int column6 =0;
+		int d =0;
+		while(cc.hasNext()) {
+			if(cc.next().getStringCellValue().equalsIgnoreCase(("profit"))) {
+				 column2 = d;
+			
+		}
+		}
+		
+			return column2;
+		}
 
+		
 		public static void main(String[] args) throws IOException, InterruptedException, TimeoutException {
 
 			String stock = null;
 		    long roundoff = 0;
 		    double strike = 0;
-		    double atm;
+		    double atm = 0;
 		    String atmoption = null;
 		    String ls1 = null;
 		    String ls2 = null;
@@ -193,11 +249,13 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 		      // System.out.print(atm + "\t\t"); 
 		       
 			//obtaining input bytes from a file  
-			FileInputStream fis = new FileInputStream(new File("C:\\Users\\umara\\Downloads\\Stocktest.xls"));  
+			FileInputStream fis = new FileInputStream(new File("C:\\Users\\umara\\Videos\\Stocktest (2).xls"));  
 			//creating workbook instance that refers to .xls file  
-			HSSFWorkbook wb=new HSSFWorkbook(fis);   
+			HSSFWorkbook wb=new HSSFWorkbook(fis); 
+			HSSFSheet sheet=wb.getSheetAt(0);
 			//creating a Sheet object to retrieve the object  
-			HSSFSheet sheet=wb.getSheetAt(0);		
+		//	 sheet=wb.getSheetAt(0);	
+			
 			
 	FormulaEvaluator formulaEvaluator=wb.getCreationHelper().createFormulaEvaluator(); 
 			
@@ -205,7 +263,8 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 			{  
 				if (firstline == false )
 						{firstline = true;
-						continue;}
+						continue;
+						}
 				i = 0;
 			for(Cell cell: row)    //iteration over cell using for each loop  
 			{  
@@ -323,9 +382,9 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 			nmf = cell.getStringCellValue();
 			break;
 			
-			case 26:
-			strike = Double.parseDouble(cell.getStringCellValue());
-			break;
+//			case 26:
+//			strike = Double.parseDouble(cell.getStringCellValue());
+//			break;
 			
 			case 27:
 			atm = Double.parseDouble(cell.getStringCellValue());
@@ -365,10 +424,37 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 			Thread.sleep(15000);
 			//sp.section_Button();
 			Thread.sleep(3000);
+			Iterator<Row> s = sheet.iterator();
 			
-			for (int k= 1 ;k <= sheet.getLastRowNum() ; k++) { // Loop through each row in the sheet
+				
+			
+			
+		
+			 
+				
+//			 if(cc.next().getStringCellValue().equalsIgnoreCase(("ATM"))) {
+//					column2 = d;
+//				}
+//             if(cc.next().getStringCellValue().equalsIgnoreCase(("Margin required"))) {
+//            	  column3 = d;
+//				}
+//               if(cc.next().getStringCellValue().equalsIgnoreCase(("Profit"))) {
+//            	  column4 = d;
+//				}
+//               if(cc.next().getStringCellValue().equalsIgnoreCase(("loss"))) {
+//            	  column5 = d;
+//				}
+//               if(cc.next().getStringCellValue().equalsIgnoreCase(("Breakeven"))) {
+//            	  column6 = d;	
+//				}
+				
+			
+			rightSide rightSide = new rightSide(driver);
+			
+			for (int k= 1 ;k < sheet.getLastRowNum(); k++) { // Loop through each row in the sheet
 			    // Assuming the stock name is in the first column (index 0)
 			Row r =	sheet.getRow(k);
+			
 			    
            if(r != null) {
         	   
@@ -387,9 +473,25 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 
 			        
 			        Thread.sleep(5000); 
-			    
+			        
+//			    int rr=    r.getPhysicalNumberOfCells();
+//			int columncount =    r.getLastCellNum();
 			
+			Cell ls9Cell = r.getCell(11); // Assuming ls9 is in column 1
+		            Cell ls10Cell = r.getCell(12); // Assuming ls10 is in column 2
+		   //       Cell strikecell = r.getCell(26);
+		   //     strikecell.setCellValue(strike);
 
+		          ls9 = (ls9Cell != null && ls9Cell.getCellType() == CellType.STRING) 
+		                ? ls9Cell.getStringCellValue().trim() 
+		                : null;
+
+		             ls10 = (ls10Cell != null && ls10Cell.getCellType() == CellType.STRING) 
+		                ? ls10Cell.getStringCellValue().trim() 
+		                : null;
+		           
+		        				   
+			      
 			//for(int k =stock.length()-1 ; k >=0 ;) {
 		//	driver.navigate().to("https://web.sensibull.com/option-strategy-builder?instrument_symbol="+stock+"");
 			//lp.goTo();
@@ -397,18 +499,66 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 			atTheMoney = new atTheMoney(driver);
 			
 			long strike1 = Math.round(atTheMoney.stockValue()); 
+			 
 			
+			       
+			
+			
+//			System.out.print("Strike :" + strike1);
+//			
+//			atm = fetchatm(strike1,roundoff);
+//					//clickstrike()
+//			atTheMoney.settingScreen();
 	
 //	String[] e1  = d1.split(".");
 //	String part = e1[0];
 //	System.out.println("mm"+part);
-	
 			
-		System.out.print("Strike :" + strike1);
+			
+   
+
+			// Now you can safely set the value in the cell
+			//cb.setCellValue(strike1); // Setting the strike value
+
+	
+//    Cell cb =   r.getCell(getstrikecolumn());
+//   // System.out.println(r.getCell(getprofitcolumn()));
+//      System.out.println( "strikecolumnnum      :     " +r.getCell(getstrikecolumn()));
+//   //   System.out.println(strikecol + "oo");
+//      if (r.getCell(getstrikecolumn()) == null) {
+//    	   r.createCell(getstrikecolumn(), CellType.NUMERIC); // Create cell if it doesn't exist
+//      }
+//    
+//      cb.setCellValue(strike1);
+			
+		
+
+			
+//			FileOutputStream fos = new FileOutputStream(new File("C:\\Users\\umara\\Downloads\\Stocktest.xlsx"));
+//			XSSFWorkbook wb1 = new XSSFWorkbook();
+//			wb.write(fos);
+//			fos.close();
+//		wb.close();
+			System.out.print("Strike :" + strike1);
 		
 		atm = fetchatm(strike1,roundoff);
 				//clickstrike()
 		atTheMoney.settingScreen();
+		
+		
+		
+		 
+		
+//		  if (strikecell == null) {
+//      	    // If the cell does not exist, create it
+//      	    strikecell = r.createCell(26, CellType.NUMERIC);
+//      	}
+
+      	// Set the value of the strike cell
+		
+      	//strikecell.setCellValue(column1);
+      //	FileOutputStream fos = new FileOutputStream("C:\\Users\\umara\\Downloads\\Stocktest(1).xls");
+		
 		 
 
 
@@ -438,18 +588,57 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 			String v_strike =	String.valueOf(strike1);
 			atTheMoney.clickStrike_s(v_strike,str[0], str[1],str[2],str[3]);
 		}
+		
+//		if(strike > 0) {
+//			cell.setCellValue(strike1);
+//			
+//		}
+//		
+		
+//		cell.setCellValue(strike1);
+		
+//		FileOutputStream fos = new FileOutputStream("C:\\Users\\umara\\Downloads\\Stocktest.xlsx");
+//	     
+//		try {
+//		    // Write the workbook to the output stream
+//		    wb.write(fos);  // Write changes before closing the workbook
+//		} catch (IOException e) {
+//		    e.printStackTrace();
+//		} finally {
+//		    // Always close the output stream and workbook in the finally block
+//		    if (fos != null) {
+//		        fos.close();
+//		    }
+//		    if (wb != null) {
+//		        wb.close();  // Close workbook after writing
+//		    }
+//		}
 		FutPage FutPage = new FutPage(driver);
 		FutPage.done();
 		  //right side..
-		  rightSide rightSide = new rightSide(driver);
-		  rightSide.maxprof();
-		  rightSide.maxlos();
-		 rightSide.breakEve();
+		//  rightSide rightSide = new rightSide(driver);
+//		  rightSide.maxprof();
+//		  rightSide.maxlos();
+//		 rightSide.breakEve();
 		 
-		 rightSide.allRounder();
+		// rightSide.allRounder();
+		 r.createCell(25).setCellValue(strike1);
+		 r.createCell(26).setCellValue(atm);
+		 r.createCell(27).setCellValue( rightSide.marginrequired());
+		 r.createCell(28).setCellValue(rightSide.maxprof());
+		 r.createCell(29).setCellValue(rightSide.maxlos());
+	      r.createCell(30).setCellValue(rightSide.breakEve());
+		 
+		 fis.close();
+
+         FileOutputStream outFile =new FileOutputStream(new File("C:\\Users\\umara\\Videos\\Stocktest (2).xls"));
+         wb.write(outFile);
+         outFile.close();
+
+     } 
 		//  rightSide.getAllFundValues();
 		  Thread.sleep(2000);
-		  rightSide.payoffButton();
+		//  rightSide.payoffButton();
 		 
 		System.out.println("  payOff-Table");  
 	//	rightSide.tableCode();
@@ -658,7 +847,7 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 		    	    us10,
 		    	    cmf,
 		    	    nmf,
-		    	    strike1,
+		    	    strike,
 		    	    atm,
 		    	    margin,
 		    	    profit,
@@ -670,9 +859,10 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 			System.out.println();  
 		
 			    }
+			    
            }
-			}
-		}
+           }
+		
 			
 
 			

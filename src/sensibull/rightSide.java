@@ -144,13 +144,17 @@ WebDriver driver;
 		}
 	}
 	
-	public void maxprof() {
+	public String maxprof() {
 		JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
-
+     Object prof = jsExecutor.executeScript("return arguments[0].innerText;", maxProfit);
         // Execute JavaScript to click the element
-   System.out.print("  Maximum_Profit : " +jsExecutor.executeScript("return arguments[0].innerText;", maxProfit));
+          String out = ((String) prof).replace("L", "00000"); 
+          return out;
+   //  System.out.println("MaximumProfit :" + out );
+  // System.out.print("  Maximum_Profit : " +jsExecutor.executeScript("return arguments[0].innerText;", maxProfit));
 		// System.out.println(maxProfit.getText());
-   
+//   String out = vales.replace("L", "00000"); 
+     
 	}
 	public void fundsNeeded() {
 	   System.out.println("FundsNeeded "+ FundsNeed.getText());
@@ -158,26 +162,73 @@ WebDriver driver;
 	public void marginNeeded() {
 	System.out.println("MarginNeeded " + marginNeeded.getText());	
 	}
+	public String marginrequired() {
+		String Margin_Required = null;
+		for(int k=0 ; k < driver.findElements(By.xpath("(//div[@class='sc-gYhigD edTsfv'])[2]//div[@class='sc-gYhigD kFhtfF']//p[@class='sc-kiYtDG hvJrUG']")).size() ; k++ ) {
+			String vales =  driver.findElements(By.xpath("(//div[@class='sc-gYhigD edTsfv'])[2]//div[@class='sc-gYhigD kFhtfF']//p[@class='sc-kiYtDG hvJrUG']")).get(1).getText();
+			 Margin_Required = vales.replace("L", "00000");
+			//System.out.println(Margin_Required);
+		}
+		return Margin_Required;
+	
+		
+		
+		}
 	public void allRounder() {
 		for(int k=0 ; k < driver.findElements(By.xpath("(//div[@class='sc-gYhigD edTsfv'])[2]//div[@class='sc-gYhigD kFhtfF']//p[@class='sc-kiYtDG hvJrUG']")).size() ; k++ ) {
-			String vales =  driver.findElements(By.xpath("(//div[@class='sc-gYhigD edTsfv'])[2]//div[@class='sc-gYhigD kFhtfF']//p[@class='sc-kiYtDG hvJrUG']")).get(k).getText();
-		System.out.print("  FundsNeeded , Margin Value , Margin Available:" +vales);
+			String vales =  driver.findElements(By.xpath("(//div[@class='sc-gYhigD edTsfv'])[2]//div[@class='sc-gYhigD kFhtfF']//p[@class='sc-kiYtDG hvJrUG']")).get(0).getText();
+			// String numericPart = ((String) vales).replaceAll("[^0-9.]", ""); // Remove non-numeric characters except '-' and '.'
+			String vales1 =  driver.findElements(By.xpath("(//div[@class='sc-gYhigD edTsfv'])[2]//div[@class='sc-gYhigD kFhtfF']//p[@class='sc-kiYtDG hvJrUG']")).get(1).getText();
+			String vales2 =  driver.findElements(By.xpath("(//div[@class='sc-gYhigD edTsfv'])[2]//div[@class='sc-gYhigD kFhtfF']//p[@class='sc-kiYtDG hvJrUG']")).get(2).getText();
+			String FundsNeeded = vales.replace("L", "00000"); 
+			String Margin_Required = vales1.replace("L", "00000");
+			String Margin_Available =  vales2.replace("L", "00000");
+//			String numericPart =  vales.replaceAll("[^0-9.]", ""); // Remove non-numeric characters except '-' and '.'
+//			 //  numericPart = numericPart.split("L")[0];
+//			 System.out.print("n"+numericPart);
+//			 double value = Double.parseDouble(numericPart); // Convert to double
+//
+//			   // Step 2: Multiply the numeric value by 100000
+//			   double multipliedValue = value * 100000;
+//
+//			   // Step 3: Replace "L" with the computed value
+//			   String output =  vales.replace("L", String.valueOf((int) multipliedValue)); 
+System.out.println("FundsNeeded" + FundsNeeded);
+System.out.println("Margin_Required" + Margin_Required);
+System.out.println("Margin_Available" + Margin_Available);
 		}
 		
 	}
-	public void maxlos() {
+	public String maxlos() {
 		
 		JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
 
         // Execute JavaScript to click the element
-   System.out.print("   Maximum_Loss : " + jsExecutor.executeScript("return arguments[0].innerText;", maxLoss));
+	 Object val =	jsExecutor.executeScript("return arguments[0].innerText;", maxLoss);
+ //  System.out.print("   Maximum_Loss : " + jsExecutor.executeScript("return arguments[0].innerText;", maxLoss));
+	String maximumLoss =  (( String )val).replace("L", "00000");
+  
+	return maximumLoss;
+	//System.out.print("massLos : " + (( String )val).replace("L", "00000") ); 
+
+//   String numericPart = ((String) val).replaceAll("[^0-9.-L]", ""); // Remove non-numeric characters except '-' and '.'
+//   numericPart = numericPart.split("L")[0]; 
+//   double value = Double.parseDouble(numericPart); // Convert to double
+//
+//   // Step 2: Multiply the numeric value by 100000
+//   double multipliedValue = value * 100000;
+//
+//   // Step 3: Replace "L" with the computed value
+//   String output = ((String) val).replace("L", String.valueOf((int) multipliedValue)); 
+//   System.out.print(output);
 		// System.out.println(maxProfit.getText());
 //	System.out.println(maxLoss.getText());	
 	}
-	public void breakEve() {
+	public  String breakEve() {
 		JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
-		 System.out.print("BreakEven : " +jsExecutor.executeScript("return arguments[0].innerText;", breakEven));
-//	System.out.println(breakEven.getText());
+		  Object br =  jsExecutor.executeScript("return arguments[0].innerText;", breakEven);
+		  String out = ((String) br).replace("L", "00000");  
+		return out;
 	}
 	public void getAllFundValues() {
 		try {
