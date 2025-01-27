@@ -40,7 +40,7 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 
 
 	class Stock  {
-	    public String stock;
+	  //  public String stock;
 	    public double roundoff;
 	    public double strike;
 	    public double atm;
@@ -109,7 +109,7 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 	    	    double breakeven
 	    		)
 	    {
-	        this.stock = stock;
+	       // this.stock = stock;
 		    this.roundoff = roundoff;
 		    this.strike = strike;
 		    this.atm = atm;
@@ -146,60 +146,39 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 	public class FetchDataFromExcel extends baseClass {
 		
 		
-		public static int getstrikecolumn() throws IOException {
-			FileInputStream fis = new FileInputStream(new File("C:\\Users\\umara\\Downloads\\Stocktest.xlsx"));  
-			//creating workbook instance that refers to .xls file  
-			XSSFWorkbook wb=new XSSFWorkbook(fis); 
-			
-			XSSFSheet sheet=wb.getSheetAt(0);
-			Iterator<Row>  rows= sheet.iterator();// sheet is collection of rows		
-			Row firstrow= rows.next();		
-			Iterator<Cell> ce=firstrow.cellIterator();//row is collection of cells
-			int k=0;	
-			int coloumn = 0;	
-			while(ce.hasNext())		{	
-				Cell value=ce.next();
-				System.out.println(value.getStringCellValue());
-			if(value.getStringCellValue().equalsIgnoreCase("strike"))		{	
-				coloumn=k;
-			}
-			k++;	
-			}		
-			System.out.println(coloumn);
-			return coloumn;
-			}
-		public static int getprofitcolumn() throws IOException {
-			FileInputStream fis = new FileInputStream(new File("C:\\Users\\umara\\Downloads\\Stocktest.xlsx"));  
-			//creating workbook instance that refers to .xls file  
-			HSSFWorkbook wb=new HSSFWorkbook(fis);  
-			HSSFSheet sheet=wb.getSheetAt(0);
-			Iterator<Row> s = sheet.iterator();
-			
-			Row firstrow =	s.next();
-		Iterator<Cell> cc = 	firstrow.cellIterator();
 		
-		
-		int column2 =0;
-		int column3 =0;
-		int column4 =0;
-		int column5 =0;
-		int column6 =0;
-		int d =0;
-		while(cc.hasNext()) {
-			if(cc.next().getStringCellValue().equalsIgnoreCase(("profit"))) {
-				 column2 = d;
-			
-		}
-		}
-		
-			return column2;
-		}
+//		public static int getprofitcolumn() throws IOException {
+//			FileInputStream fis = new FileInputStream(new File("C:\\Users\\umara\\Downloads\\Stocktest.xlsx"));  
+//			//creating workbook instance that refers to .xls file  
+//			HSSFWorkbook wb=new HSSFWorkbook(fis);  
+//			HSSFSheet sheet=wb.getSheetAt(0);
+//			Iterator<Row> s = sheet.iterator();
+//			
+//			Row firstrow =	s.next();
+//		Iterator<Cell> cc = 	firstrow.cellIterator();
+//		
+//		
+//		int column2 =0;
+//		int column3 =0;
+//		int column4 =0;
+//		int column5 =0;
+//		int column6 =0;
+//		int d =0;
+//		while(cc.hasNext()) {
+//			if(cc.next().getStringCellValue().equalsIgnoreCase(("profit"))) {
+//				 column2 = d;
+//			
+//		}
+//		}
+//		
+//			return column2;
+//		}
 
 		
 		public static void main(String[] args) throws IOException, InterruptedException, TimeoutException {
 
 			String stock = null;
-		    long roundoff = 0;
+		    double roundoff = 0;
 		    double strike = 0;
 		    double atm = 0;
 		    String atmoption = null;
@@ -236,6 +215,7 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 			Components Components = new Components(driver);
 			atTheMoney atTheMoney = new atTheMoney(driver);
 			String centralAmount; 
+			String fileName = "C:\\Users\\umara\\Videos\\Stocktest (2).xls";
 		       
 	/// determine ATM by passing strike and round off
 
@@ -249,7 +229,7 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 		      // System.out.print(atm + "\t\t"); 
 		       
 			//obtaining input bytes from a file  
-			FileInputStream fis = new FileInputStream(new File("C:\\Users\\umara\\Videos\\Stocktest (2).xls"));  
+			FileInputStream fis = new FileInputStream(new File(fileName));  
 			//creating workbook instance that refers to .xls file  
 			HSSFWorkbook wb=new HSSFWorkbook(fis); 
 			HSSFSheet sheet=wb.getSheetAt(0);
@@ -285,7 +265,7 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 			stock = cell.getStringCellValue();
 			break;
 			case 2:
-				roundoff = (long) cell.getNumericCellValue();
+				roundoff =  (long) cell.getNumericCellValue();
 				break;
 			
 		
@@ -447,11 +427,11 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 //               if(cc.next().getStringCellValue().equalsIgnoreCase(("Breakeven"))) {
 //            	  column6 = d;	
 //				}
-				
+				boolean settingScreen = false;
 			
 			rightSide rightSide = new rightSide(driver);
 			
-			for (int k= 1 ;k < sheet.getLastRowNum(); k++) { // Loop through each row in the sheet
+			for (int k= 1 ;k <= sheet.getLastRowNum(); k++) { // Loop through each row in the sheet
 			    // Assuming the stock name is in the first column (index 0)
 			Row r =	sheet.getRow(k);
 			
@@ -479,8 +459,11 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 			
 			Cell ls9Cell = r.getCell(11); // Assuming ls9 is in column 1
 		            Cell ls10Cell = r.getCell(12); // Assuming ls10 is in column 2
+		            Cell roundoffcell = r.getCell(1);
 		   //       Cell strikecell = r.getCell(26);
 		   //     strikecell.setCellValue(strike);
+		           
+		      
 
 		          ls9 = (ls9Cell != null && ls9Cell.getCellType() == CellType.STRING) 
 		                ? ls9Cell.getStringCellValue().trim() 
@@ -489,8 +472,13 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 		             ls10 = (ls10Cell != null && ls10Cell.getCellType() == CellType.STRING) 
 		                ? ls10Cell.getStringCellValue().trim() 
 		                : null;
+		             roundoff = (roundoffcell != null && roundoffcell.getCellType() == CellType.NUMERIC)
+		            		 ? roundoffcell.getNumericCellValue()
+		            				 : null;
+		             
+		             
 		           
-		        				   
+		          
 			      
 			//for(int k =stock.length()-1 ; k >=0 ;) {
 		//	driver.navigate().to("https://web.sensibull.com/option-strategy-builder?instrument_symbol="+stock+"");
@@ -500,7 +488,7 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 			
 			long strike1 = Math.round(atTheMoney.stockValue()); 
 			 
-			
+		
 			       
 			
 			
@@ -540,13 +528,17 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 //			fos.close();
 //		wb.close();
 			System.out.print("Strike :" + strike1);
-		
+//			Cell roundoffcell = r.getCell(2);
+//	          roundoff = (roundoffcell != null && roundoffcell.getCellType() == CellType.NUMERIC) 
+//	                  ? (long) roundoffcell.getNumericCellValue() 
+//	                  : 0L;
 		atm = fetchatm(strike1,roundoff);
 				//clickstrike()
+		if(!settingScreen) {
 		atTheMoney.settingScreen();
+		settingScreen = true;
 		
-		
-		
+		}
 		 
 		
 //		  if (strikecell == null) {
@@ -565,9 +557,27 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 //		atTheMoney.clickStrike("260", null, null, "6" , "18");
 //		atTheMoney.clickStrike("250", "50", null, null , "120");
 //		atTheMoney.clickStrike("240", null, "20" , "30" , null);
-		
+//		  Cell roundoffcell = r.getCell(2);
+//		  roundoff  = (roundoffcell != null && roundoffcell.getCellType() == CellType.NUMERIC) 
+//	                ? roundoffcell.getNumericCellValue().trim()
+//	                : null;
+		Cell roundoffCell = r.getCell(2); // Column 1: Roundoff
+	   
+//	    if (roundoffCell != null) {
+//	        if (roundoffCell.getCellType() == CellType.NUMERIC) {
+//	            roundoff = roundoffCell.getNumericCellValue();
+//	        } else if (roundoffCell.getCellType() == CellType.STRING) {
+//	            try {
+//	                roundoff = Double.parseDouble(roundoffCell.getStringCellValue().trim());
+//	            } catch (NumberFormatException e) {
+//	                roundoff = 0.0; // Default if conversion fails
+//	            }
+//	        }
+//	    }
+
 		if(ls10 != null)
 		{
+            //sheet.getRow(k).getCell(2);
 			strike1 =  (long) (atm + ( 10 * roundoff));
 			String str[] = ls10.split(",",-1);
 	//	String str_strike = Double.toString(strike1);
@@ -583,6 +593,7 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 		
 		if(ls9 != null)
 		{
+			//sheet.getRow(k).getCell(2);
 			strike1 = (long) (atm + ( 9 * roundoff));
 			String str[] = ls9.split("," , -1);
 			String v_strike =	String.valueOf(strike1);
@@ -631,16 +642,17 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 		 
 		 fis.close();
 
-         FileOutputStream outFile =new FileOutputStream(new File("C:\\Users\\umara\\Videos\\Stocktest (2).xls"));
+         FileOutputStream outFile =new FileOutputStream(new File(fileName));
          wb.write(outFile);
          outFile.close();
 
      } 
+           
 		//  rightSide.getAllFundValues();
-		  Thread.sleep(2000);
+		 // Thread.sleep(2000);
 		//  rightSide.payoffButton();
 		 
-		System.out.println("  payOff-Table");  
+	//	System.out.println("  payOff-Table");  
 	//	rightSide.tableCode();
 //		if(ls8 != null)
 //		{
@@ -801,17 +813,17 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 		
 //		FutPage.done();
 //		  //right side..
-//		  rightSide rightSide = new rightSide(driver);
-//		  rightSide.maxprof();
-//		  rightSide.maxlos();
-//		 rightSide.breakEve();
-//		 
-//		 rightSide.allRounder();
-//		//  rightSide.getAllFundValues();
-//		  Thread.sleep(2000);
-//		  rightSide.payoffButton();
-//		  rightSide.tHeader();
-//		  rightSide.target();
+		 // rightSide rightSide = new rightSide(driver);
+		  rightSide.maxprof();
+		//  rightSide.maxlos();
+		 rightSide.breakEve();
+		 
+		 rightSide.allRounder();
+		//  rightSide.getAllFundValues();
+		  Thread.sleep(2000);
+		  rightSide.payoffButton();
+		  rightSide.tHeader();
+		  rightSide.target();
 //		  rightSide.tableCode();
 		
 //		if (atmoption != null)
@@ -859,8 +871,9 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 			System.out.println();  
 		
 			    }
+			}
 			    
-           }
+           
            }
 		
 			
