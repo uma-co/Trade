@@ -2,10 +2,10 @@ package sensibull;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.sl.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.FormulaEvaluator;
@@ -145,7 +145,27 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 
 	public class FetchDataFromExcel extends baseClass {
 		
-		
+//		public  static void payoffTableLoadingSheet() throws IOException, InterruptedException {
+//			rightSide rightSide = new rightSide(driver);
+//			 
+//			FileInputStream fis = new FileInputStream(new File("C:\\Users\\umara\\Downloads\\Stocktest.xlsx"));  
+////			//creating workbook instance that refers to .xls file  
+//		HSSFWorkbook wb1 =new HSSFWorkbook(fis);  
+////			HSSFSheet sheet=wb.getSheetAt(0);
+//			HSSFSheet sheet2 =	wb1.createSheet("newsheet");
+//			for(int t = 1 ; t < sheet2.getLastRowNum() ; t++) {
+//			Row roww =	sheet2.getRow(t);
+//				if(roww == null) {
+//				Row row1 =	sheet2.createRow(t);
+//				row1.createCell(t).setCellValue(rightSide.tableCode());
+//				 fis.close();
+//
+//		         FileOutputStream outFile =new FileOutputStream(new File("C:\\Users\\umara\\Downloads\\Stocktest.xlsx"));
+//		         wb1.write(outFile);
+//		         outFile.close();
+//				}
+//			}
+//		}
 		
 //		public static int getprofitcolumn() throws IOException {
 //			FileInputStream fis = new FileInputStream(new File("C:\\Users\\umara\\Downloads\\Stocktest.xlsx"));  
@@ -215,7 +235,7 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 			Components Components = new Components(driver);
 			atTheMoney atTheMoney = new atTheMoney(driver);
 			String centralAmount; 
-			String fileName = "C:\\Users\\umara\\Videos\\Stocktest (2).xls";
+			String fileName = "C:\\Users\\umara\\Videos\\Stocktest (2) (3).xls";
 		       
 	/// determine ATM by passing strike and round off
 
@@ -235,6 +255,8 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 			HSSFSheet sheet=wb.getSheetAt(0);
 			//creating a Sheet object to retrieve the object  
 		//	 sheet=wb.getSheetAt(0);	
+			
+			
 			
 			
 	FormulaEvaluator formulaEvaluator=wb.getCreationHelper().createFormulaEvaluator(); 
@@ -631,20 +653,39 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 //		  rightSide.maxprof();
 //		  rightSide.maxlos();
 //		 rightSide.breakEve();
+		 rightSide.allRounder();
+			//  rightSide.getAllFundValues();
+			  Thread.sleep(2000);
+			  rightSide.payoffButton();
+			//  rightSide.gcode();
+			//  rightSide.tHeader();
+			//  rightSide.target();
+			 
+			  
+			
+			  
+		
 		 
 		// rightSide.allRounder();
 		 r.createCell(25).setCellValue(strike1);
 		 r.createCell(26).setCellValue(atm);
-		 r.createCell(27).setCellValue( rightSide.marginrequired());
+		 r.createCell(27).setCellValue(rightSide.marginrequired());
 		 r.createCell(28).setCellValue(rightSide.maxprof());
-		 r.createCell(29).setCellValue(rightSide.maxlos());
+		 r.createCell(29).setCellValue(String.valueOf(rightSide.maxlos()));
 	      r.createCell(30).setCellValue(rightSide.breakEve());
+	    //  payoffTableLoadingSheet();
 		 
 		 fis.close();
 
          FileOutputStream outFile =new FileOutputStream(new File(fileName));
-         wb.write(outFile);
-         outFile.close();
+        
+    
+        	// HSSFWorkbook workbook1 = new HSSFWorkbook();
+    HSSFSheet sh =    wb.createSheet(stock1); 
+ 		rightSide.tableCode(stock1 , wb , sh);
+ 			 wb.write(outFile);
+ 	         outFile.close();
+        
 
      } 
            
@@ -814,17 +855,18 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 //		FutPage.done();
 //		  //right side..
 		 // rightSide rightSide = new rightSide(driver);
-		  rightSide.maxprof();
+	//	  rightSide.maxprof();
 		//  rightSide.maxlos();
-		 rightSide.breakEve();
+		// rightSide.breakEve();
 		 
 		 rightSide.allRounder();
 		//  rightSide.getAllFundValues();
 		  Thread.sleep(2000);
-		  rightSide.payoffButton();
-		  rightSide.tHeader();
-		  rightSide.target();
-//		  rightSide.tableCode();
+		//  rightSide.payoffButton();
+	//	  rightSide.gcode();
+//		  rightSide.tHeader();
+//		  rightSide.target();
+	//	  rightSide.tableCode(stock1);
 		
 //		if (atmoption != null)
 //		{

@@ -1,10 +1,17 @@
 package sensibull;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.time.Duration;
 import java.util.List;
 
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.sl.usermodel.Sheet;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -18,6 +25,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import com.google.common.collect.Table.Cell;
 
 import abstractComponents.Components;
 
@@ -57,6 +66,7 @@ WebDriver driver;
 	WebElement FundsNeed;
 	@FindBy(xpath="//div[@class='secondary-summary']//div[1]//div[2]//p[1]")
 	WebElement marginNeeded;
+	private double multipliedValue;
 	
 	public void tHeader() {
 		
@@ -70,10 +80,63 @@ WebDriver driver;
 			System.out.println(header.get(i).getText());
 		}
 	}
+//	public void gcode() {
+//		
+//try {
+//		            // Locate the table
+//		            WebElement table = driver.findElement(By.xpath("//table[@class='sc-fnMOsY knLpSq']"));
+//
+//		            // Get all rows (including <tr>)
+//		            List<WebElement> rows = table.findElements(By.xpath(".//tbody/tr"));
+//
+//		            // Create a new workbook and sheet
+//		        //    FileInputStream fis = new FileInputStream(new File("C:\\Users\\umara\\Downloads\\images"));
+//		            HSSFWorkbook workbook = new HSSFWorkbook();
+//		            HSSFSheet sheet = workbook.createSheet("Table Data");
+//
+//		            // Loop through rows
+//		            for (int i = 0; i < rows.size(); i++) {
+//		                // Create a new row in the Excel sheet
+//		                HSSFRow excelRow = sheet.createRow(i);
+//
+//		                // Get all columns (<td>) in the current row
+//		                List<WebElement> columns = rows.get(i).findElements(By.xpath(".//td"));
+//
+//		                // Loop through columns and write data to Excel
+//		                for (int j = 0; j < columns.size(); j++) {
+//		                    String cellData = columns.get(j).getText();
+//
+//		                    // Create a new cell in the Excel sheet
+//		                    HSSFCell cell = excelRow.createCell(j);
+//		                    cell.setCellValue(cellData);
+//		                }
+//		            }
+//
+//		            // Write the data to an Excel file
+//		            FileOutputStream fileOut = new FileOutputStream("TC:\\Users\\umara\\Downloads\\images\\tableData.xls");
+//		            workbook.write(fileOut);
+//		            fileOut.close();
+//		            workbook.close();
+//
+//		            System.out.println("Table data has been written to 'TableData.xlsx' successfully!");
+//
+//		        } catch (Exception e) {
+//		            e.printStackTrace();
+//		        } finally {
+//		            // Close the browser
+//		            driver.quit();
+//		        }
+//		    }
+		
+
 	
-	public void tableCode() throws FileNotFoundException {
+	
+	public void tableCode(String stock ,  HSSFWorkbook workbook , HSSFSheet HSSFSheet)  {
 		 // Locate the table
-        WebElement table = driver.findElement(By.xpath("//table[@class='sc-PfnZo ipbFpb']"));
+		//table[@class="sc-imdvxF jMiBVC"]//tr
+//		String row = null;
+//		Thread.sleep(2000);
+        WebElement table = driver.findElement(By.xpath("//table"));
 
         // Locate all rows in the table body
         List<WebElement> rows = table.findElements(By.xpath(".//tbody/tr"));
@@ -93,11 +156,60 @@ WebDriver driver;
     	
     	System.out.println("row :" + n++);
     	System.out.println(row);
+       
+       
+       }
+    	//   FileInputStream fis = new FileInputStream(new File("C:\\Users\\umara\\Downloads\\images\\tableData.xls"));
+      // HSSFWorkbook workbook = new HSSFWorkbook();
+      
+
+       // Loop through rows
+       for (int i= 0; i < rows.size(); i++) {
+    	   //this line need to be modified , either give stock else do some modification in the parameter,
+    	//   HSSFSheet sheet = workbook.createSheet("sheet1");
+      
+     
+//    	   HSSFSheet sheet = workbook.createSheet(stock);
+//           HSSFRow excelRow = sheet.createRow(k);
+    	   HSSFRow excelRow = HSSFSheet.createRow(i);
+    	 
+    	//   List<WebElement> header =  driver.findElements(By.xpath(".//th"));
+    	   
+           List<WebElement> columns = rows.get(i).findElements(By.xpath(".//td"));
+           
+          
+           for (int j = 0; j < columns.size(); j++) {
+        	  
+//        	   if (sheet == null) {
+//        	        // If the sheet doesn't exist, create a new one
+//        	        sheet = workbook.createSheet(stock);
+//        	    } else {
+//        	        // Handle duplicate sheet names by appending a unique suffix
+//        	        int counter = 1;
+//        	        while (workbook.getSheet(stock + "_" + counter) != null) {
+//        	            counter++;
+//        	        }
+//        	        sheet = workbook.createSheet(stock + "_" + counter);
+//        	    }
+        	   
+               String cellData = columns.get(j).getText();
+
+             
+               HSSFCell cell = excelRow.createCell(j);
+            //   cell.setCellValue(header.get(i).getText());
+               cell.setCellValue(cellData);
+           
+           }
+           }
+       }
+     
+     
 //    	for(int j = 0 ; j < rows.size(); j++) {
 //    	XSSFCell cell =	row1.createCell(j);
 //    	cell.setCellValue(row[i][j]);
-    		
-    	}}
+    	//	return row;
+    	
+//	return row;}
     //	WebElement cell= row.findElement(By.xpath("./td[" + columnIndex + "]"));
 // System.out.println(cell.getText());
     
@@ -164,10 +276,16 @@ WebDriver driver;
 	System.out.println("MarginNeeded " + marginNeeded.getText());	
 	}
 	public double marginrequired() {
-		   double multipliedValue = 0;
+		   double multipliedValue = 0 ;
+		  
+		   String output = null;
 		for(int k=0 ; k < driver.findElements(By.xpath("(//div[@class='sc-gYhigD edTsfv'])[2]//div[@class='sc-gYhigD kFhtfF']//p[@class='sc-kiYtDG hvJrUG']")).size() ; k++ ) {
 			String vales =  driver.findElements(By.xpath("(//div[@class='sc-gYhigD edTsfv'])[2]//div[@class='sc-gYhigD kFhtfF']//p[@class='sc-kiYtDG hvJrUG']")).get(1).getText();
 			// Margin_Required = vales.replace("L", "00000");
+			 
+
+			    // Check if the value contains numeric characters or "L" before performing operations
+//			   if(vales.contains("L")) {
 			 String numericPart = ((String) vales).replaceAll("[^0-9.-L]", ""); // Remove non-numeric characters except '-' and '.'
 			   numericPart = numericPart.split("L")[0]; 
 			   double value = Double.parseDouble(numericPart); // Convert to double
@@ -176,16 +294,28 @@ WebDriver driver;
 			    multipliedValue = value * 100000;
 
 			   // Step 3: Replace "L" with the computed value
-			  String output = ((String) vales).replace("L", String.valueOf((int) multipliedValue)); 
+			   output = ((String) vales).replace("L", String.valueOf((int) multipliedValue)); 
 			  
 				
 			//System.out.println(Margin_Required);
-		}
+		
 		return multipliedValue;
+			   }
+//			   else {
+//				  System.out.println(vales);
+//		          return Long.parseLong(String.valueOf(vales)); // Return the original value as a double			   }
+//		
+//		}
+		
+		
+		return multipliedValue;
+	}
+		
+	
+	
 	
 		
 		
-		}
 	public void allRounder() {
 		for(int k=0 ; k < driver.findElements(By.xpath("(//div[@class='sc-gYhigD edTsfv'])[2]//div[@class='sc-gYhigD kFhtfF']//p[@class='sc-kiYtDG hvJrUG']")).size() ; k++ ) {
 			String vales =  driver.findElements(By.xpath("(//div[@class='sc-gYhigD edTsfv'])[2]//div[@class='sc-gYhigD kFhtfF']//p[@class='sc-kiYtDG hvJrUG']")).get(0).getText();
@@ -211,7 +341,7 @@ System.out.println("Margin_Available" + Margin_Available);
 		}
 		
 	}
-	public double maxlos() {
+	public Object maxlos() {
 		
 		JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
 
@@ -220,10 +350,15 @@ System.out.println("Margin_Available" + Margin_Available);
  //  System.out.print("   Maximum_Loss : " + jsExecutor.executeScript("return arguments[0].innerText;", maxLoss));
 	//String maximumLoss =  (( String )val).replace("L", "00000");
   
-	
-	//System.out.print("massLos : " + (( String )val).replace("L", "00000") ); 
+	 String valString = (String) val;
 
-   String numericPart = ((String) val).replaceAll("[^0-9.\\-L]", ""); // Remove non-numeric characters except '-' and '.'
+	    // Check if the value contains numeric characters or "L" before performing operations
+	    if (valString.matches(".*[0-9L].*")) {
+	//System.out.print("massLos : " + (( String )val).replace("L", "00000") ); 
+ 
+   String numericPart = ((String) val).replaceAll("[^0-9.\\-L]", ""); 
+   // Remove non-numeric characters except '-' and '.'
+   
   numericPart = numericPart.split("L")[0]; 
    double value = Double.parseDouble(numericPart); // Convert to double
 
@@ -231,9 +366,16 @@ System.out.println("Margin_Available" + Margin_Available);
    double multipliedValue = value * 100000;
 
    // Step 3: Replace "L" with the computed value
-   String output = ((String)val ).replace("L", String.valueOf((int) multipliedValue)); 
+  // String output = ((String)val ).replace("L", String.valueOf((int) multipliedValue)); 
    
 	return 	multipliedValue;
+	    }
+	    else {
+	    	  String out = ((String) val).replace("L", "00000"); 
+	    	return out;
+	    }
+	
+	
 	}
 	public  String breakEve() {
 		JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
