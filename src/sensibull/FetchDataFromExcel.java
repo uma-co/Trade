@@ -143,6 +143,7 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 	    }
 	}
 
+
 	public class FetchDataFromExcel extends baseClass {
 		
 //		public  static void payoffTableLoadingSheet() throws IOException, InterruptedException {
@@ -194,7 +195,7 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 //			return column2;
 //		}
 
-		
+		 public static boolean settflag = true;
 		public static void main(String[] args) throws IOException, InterruptedException, TimeoutException {
 
 			String stock = null;
