@@ -420,9 +420,20 @@ public void clickStrike_s(String strike1 , String CallBuy ,String CallSell , Str
 		Actions act = new Actions(driver);
 		for(int i = 1 ; i < allStrike.size() ; i++) {
 		//	scrollUp scroller = new scrollUp(driver);
-		
-			WebElement recen =driver.findElement(By.xpath("//div[@class='sc-gYhigD LAAsy']/p[text()='"+strike1+"']"));
+		  try {
+			 recen =driver.findElement(By.xpath("//div[@class='sc-gYhigD LAAsy']/p[text()='"+strike1+"']"));
 		//	Actions act = new Actions(driver);
+		  }
+		  catch(Exception e) {
+			  System.out.println("Strike Value Not Found");
+			  FetchDataFromExcel FetchDataFromExcel = new FetchDataFromExcel();
+			  FetchDataFromExcel.settflag = false;
+			  
+			  
+			 break; 
+		  }
+		// 	WebElement recen =driver.findElement(By.xpath("//div[@class='sc-gYhigD LAAsy']/p[text()='"+strike1+"']"));
+		// //	Actions act = new Actions(driver);
 
     
 		try {
@@ -440,11 +451,12 @@ catch(Exception e){
 	
 			System.out.println(recen);
 }
-	
+	FetchDataFromExcel.settflag = true;
 		if(allStrike.get(i).getText().contains(strike1))
 					 {
 	//	act.moveToElement(recen).sendKeys(Keys.PAGE_UP).perform();
-//		act.sendKeys(recen).click(recen); //((JavascriptExecutor) driver).executeScript("arguments[0].scrollTop = arguments[0].scrollHeight", recen);
+//		act.sendKeys(recen).click(recen);
+ //((JavascriptExecutor) driver).executeScript("arguments[0].scrollTop = arguments[0].scrollHeight", recen);
 			wait.until(ExpectedConditions.elementToBeClickable(recen));
 			
 		//	js.executeScript("arguments[0].scrollIntoView(true);", recen);
