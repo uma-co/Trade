@@ -646,6 +646,7 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 //		        wb.close();  // Close workbook after writing
 //		    }
 //		}
+				     if(FetchDataFromExcel.settflag == true) {
 		FutPage FutPage = new FutPage(driver);
 		FutPage.done();
 		  //right side..
@@ -914,7 +915,7 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 		
 			    }
 			}
-			    
+			}    
            
            }
 		
